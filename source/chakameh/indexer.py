@@ -39,11 +39,17 @@ class MP3Reader(id3reader.Reader):
     def genere(self):
         return self.getValue('genere')    
     
-    def __repr__(self):
-#         if self.frames:
-#             return str(self.frames.keys())
-#         else:
-#             return '\n'
+#     def __repr__(self):
+# #         if self.frames:
+# #             return str(self.frames.keys())
+# #         else:
+# #             return '\n'
+#         return u'%s\t%s\t%s\t%s\t%s\t%s\t%s' % (self.album,self.artist,self.composer,self.year,self.title,self.lyricist,self.genere)
+    
+    def __str__(self):
+        return unicode(self).encode('utf-8')
+    
+    def __unicode__(self):
         return u'%s\t%s\t%s\t%s\t%s\t%s\t%s' % (self.album,self.artist,self.composer,self.year,self.title,self.lyricist,self.genere)
 
 def run(directory):
@@ -51,7 +57,7 @@ def run(directory):
         for file in files:
             if file.endswith('.mp3'):
                 reader = MP3Reader(os.path.join(root,file))
-                print( unicode(reader))
+                print reader
                 
         
 
