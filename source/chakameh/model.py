@@ -6,7 +6,7 @@ Created on:    Dec 29, 2013
 
 from elixir import Entity,metadata,Field,Unicode,Integer,UnicodeText,session,setup_all,Binary
 import md5
-import id3reader
+from reader import AudioFile
 
 metadata.bind = "sqlite:///../../data/tracks.sqlite"
 metadata.bind.echo = False
@@ -35,21 +35,21 @@ class Track(Entity):
         if cls.query.filter(cls.filemd5 == hash).first():
             raise FileExistsException(filename)
         
-        reader = id3reader.MP3Reader(filename)
-        newtrack = cls()
-        newtrack.title = reader.title
-        newtrack.artist = reader.artist
-        newtrack.album = reader.album
-        newtrack.composer = reader.composer
-        newtrack.year = int(reader.year) if reader.year else None
-        newtrack.lyricist = reader.lyricist
-        newtrack.genere = reader.genere
-        newtrack.commebt = reader.comment
-        newtrack.filename = filename
-        newtrack.filemd5 = hash
-        
-        session.commit()
-        return newtrack
+        reader = AudioFile(filename)
+#         newtrack = cls()
+#         newtrack.title = reader.title
+#         newtrack.artist = reader.artist
+#         newtrack.album = reader.album
+#         newtrack.composer = reader.composer
+#         newtrack.year = int(reader.year) if reader.year else None
+#         newtrack.lyricist = reader.lyricist
+#         newtrack.genere = reader.genere
+#         newtrack.commebt = reader.comment
+#         newtrack.filename = filename
+#         newtrack.filemd5 = hash
+#         
+#         session.commit()
+#         return newtrack
         
     
     def __repr__(self):

@@ -18,7 +18,7 @@ def run(directory):
             if file.endswith('.mp3'):
                 try:
                     _newtrack = Track.fromfile(os.path.join(root,file))
-                    print('Added: %s' % repr(_newtrack))
+                    #print('Added: %s' % repr(_newtrack))
                 except FileExistsException as ex:
                     print(ex.message)
                 
