@@ -34,7 +34,7 @@ setup(
     package_dir={'chakameh': 'chakameh'},
     #package_data={'pymlconf': ['tests/conf/*','tests/files/*']},
     platforms=["any"],
-    long_description=read('README.rst'),
+    long_description=read('../README.md'),
     install_requires=dependencies,
     classifiers=[
         "Development Status :: 3 - Alpha",
