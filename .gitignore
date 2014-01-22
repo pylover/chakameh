@@ -44,3 +44,4 @@ doc/_build
 __pycache__
 
 data
+source/chakameh/gui/test.mp3
