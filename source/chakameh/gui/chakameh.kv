@@ -1,6 +1,23 @@
-#:import MusicPlayer chakameh.gui.player.MusicPlayer
+#:import AudioPlayer chakameh.gui.player.AudioPlayer
+#:import PlayButton chakameh.gui.player.PlayButton
 
 Widget:
-  BoxLayout:
-    Button:
-    MusicPlayer:
+  AnchorLayout:
+    size: root.size
+    anchor_y: 'top'
+    anchor_x: 'center'
+    AudioPlayer:
+      canvas:
+        Color:
+          rgba: 100,100,100,.1
+        Rectangle:
+          pos: self.pos
+          size: self.size
+      source: "/home/vahid/AptanaStudioWorkspace/chakameh/source/chakameh/gui/test.mp3"
+      size_hint: 1, 0.06
+      font_size: '20sp'
+      text: 'vahid'
+      color:200,0,0,1
+      
+      
+      

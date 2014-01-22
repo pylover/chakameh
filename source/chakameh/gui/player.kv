@@ -1,8 +1,47 @@
-    
-<MusicPlayer>:
+
+<AudioPlayer>:
+  orientation: 'lr-tb'
+  spacing: self.width / 100,self.height / 10
+  PrevButton:
+    size_hint: .04,1
+  PlayButton:
+    size_hint: .04,1
+  NextButton:
+    size_hint: .04,1
+  Slider:
+    size_hint: .84,1
+    value: root.position
+
+<PlayButton>:
+  text: ""
+  background_color: 0,0,0,0
+  padding: 17 * self.width / 100.0
+
+<PrevButton>:
+  padding: 17 * self.width / 100.0
+  text: ""
+  background_color: 0,0,0,0
   canvas:
-    Color: 
-      rgb: 255,0,0
-    Rectangle:
-      pos: self.pos
-      size: self.size
+    Line:
+      close: True
+      joint: 'round'
+      width: 2
+      points: self.right-self.padding, self.top-self.padding, self.x+self.padding,self.y + self.height / 2.0, self.right-self.padding, self.y+self.padding
+    Line:
+      width: 2
+      points: self.x + self.padding,self.y + self.padding, self.x+self.padding,self.top - self.padding
+
+<NextButton>:
+  padding: 17 * self.width / 100.0
+  text: ""
+  background_color: 0,0,0,0
+  canvas:
+    Line: 
+      close: True
+      joint: 'round'
+      width: 2
+      points: self.x+self.padding,self.top-self.padding, self.right-self.padding,self.y + self.height / 2.0, self.x+self.padding, self.y+self.padding
+    Line:
+      width: 2
+      points: self.right - self.padding,self.y + self.padding, self.right-self.padding,self.top - self.padding
+      
