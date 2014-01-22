@@ -35,15 +35,15 @@ class PlayButton(ToggleButton):
         with self.canvas:
             self.canvas.clear()
             #Line(rectangle=(self.x,self.y,self.width , self.height))
-            offset= self.padding
+            
             if self.parent.player_state == States.PLAYING:
-                w = (self.width - offset * 3) /2
-                Rectangle(pos=[self.x + offset,self.y+ offset],size=[w, self.height-offset])
-                Rectangle(pos=[self.x + offset*2 + w,self.y+offset],size=[w, self.height-offset])
+                w = (self.width - self.padding * 3) /2
+                Rectangle(pos=[self.x + self.padding,self.y+ self.padding],size=[w, self.height-self.padding*2])
+                Rectangle(pos=[self.x + self.padding*2 + w,self.y+self.padding],size=[w, self.height-self.padding*2])
             else:
                 Line(width= 2,close= True,
                   joint= "round",cap= "round",
-                  points= [self.x+offset,self.top-offset, self.right-offset,self.y + self.height / 2.0, self.x+offset, self.y+offset])            
+                  points= [self.x+self.padding,self.top-self.padding, self.right-self.padding,self.y + self.height / 2.0, self.x+self.padding, self.y+self.padding])            
         
             
     def on_player_state(self,sender,new_state):
