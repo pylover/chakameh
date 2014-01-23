@@ -17,7 +17,9 @@ class Track(Entity):
     prime = Field(Unicode(500))
     artist = ManyToOne(Artist,required=False)
     category = ManyToOne(Category)
-    composer = ManyToOne(Composer,required=False)
+    composer = ManyToOne(Composer,required=False,lazy=True,
+                         primaryjoin=lambda: Composer.id == Track.composer_id,
+                         foreign_keys=lambda: [Track.composer_id])
     genere = ManyToOne(Genere,required=False)
     lyricist = ManyToOne(Lyricist,required=False)
     album = Field(Unicode(500),required=False)

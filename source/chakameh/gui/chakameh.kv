@@ -45,8 +45,18 @@ Widget:
     BoxLayout:
       size_hint: 1, .92
       orientation: 'horizontal'
-      Button:
+      
+      # Main Detail View
+      BoxLayout:
+        orientation: 'vertical'
         size_hint: .8, 1
+        StackLayout:
+          orientation: 'rl-tb'
+          size_hint: 1, .08
+        ListView:
+          size_hint: 1, .92
+          adapter:
+            adapters.TrackAdapter(template="DetailedListItem")
       Accordion:
         size_hint: .2, 1
         orientation: 'vertical'
@@ -55,11 +65,6 @@ Widget:
           ListView:
             adapter:
               adapters.ArtistAdapter()
-        AccordionItem:
-          title: 'آهنگساز'
-          ListView:
-            adapter:
-              adapters.ComposerAdapter()
         AccordionItem:
           title: 'شاعر'
           ListView:
@@ -70,4 +75,42 @@ Widget:
           ListView:
             adapter:
               adapters.GenereAdapter()            
-            
+        AccordionItem:
+          title: 'آهنگساز'
+          ListView:
+            adapter:
+              adapters.ComposerAdapter()
+
+<ListItemButton>:
+  background_color: .2,.2,.2,1
+  deselected_color: .2,.2,.2,1
+  selected_color: 0,.4,.8,1
+
+[SimpleListItem@SelectableView+BoxLayout]:
+  size_hint_y: None
+  height: 32
+  ListItemButton:
+    text: ctx.model.title
+    is_selected: False        
+
+<Label>:
+  text_size: self.width - 20, None
+
+[DetailedListItem@SelectableView+BoxLayout]:
+  size_hint_y: None
+  height: 32
+  orientation: 'horizontal'
+  
+  Label:
+    size_hint: .3, 1
+    text: '' if not ctx.model.composer else ctx.model.composer.title
+    halign: 'right'
+  ListItemButton:
+    size_hint: .6, 1
+    text: ctx.model.title
+    halign: 'right'
+  ListItemButton:
+    size_hint: .1, 1
+    text: ctx.model.code
+    halign: 'left'
+        
