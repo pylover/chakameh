@@ -52,8 +52,12 @@ class GenereAdapter(BaseAdapter):
 
 class TrackAdapter(BaseAdapter):
     def fetch_data(self,**kwargs):
-        return Track.query.order_by(Track.title)[:100]
+        return Track.query.order_by(Track.title).all()
         
+    def get_header(self):
+        return [Track(title=u'عنوان',
+                     composer=Composer(title=u'آهنگساز'))]
+    
     def get_count(self):
         return len(self.data)
 

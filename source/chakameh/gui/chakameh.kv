@@ -31,32 +31,56 @@ Widget:
     pos: root.pos
     orientation: 'vertical'
     AudioPlayer:
-      canvas:
-        Color:
-          rgba: 100,100,100,.1
-        Rectangle:
-          pos: self.pos
-          size: self.size
       source: "/home/vahid/AptanaStudioWorkspace/chakameh/source/chakameh/gui/test.mp3"
       size_hint: 1, .08
       font_size: '20sp'
       text: 'vahid'
-      color:200,0,0,1
+      color: 1,0,0,1
     BoxLayout:
       size_hint: 1, .92
       orientation: 'horizontal'
-      
+  
       # Main Detail View
       BoxLayout:
         orientation: 'vertical'
-        size_hint: .8, 1
-        StackLayout:
-          orientation: 'rl-tb'
-          size_hint: 1, .08
+        size_hint: .9, 1
+        BoxLayout:
+          orientation: 'horizontal'
+          size_hint: 1, None
+          height: 32
+          ToggleButton:
+            size_hint: .12, 1
+            text: 'دستگاه'
+            halign: 'right'
+          ToggleButton:
+            size_hint: .12, 1
+            text: 'شاعر'
+            halign: 'right'
+          ToggleButton:
+            size_hint: .12, 1
+            text: 'آهنگساز'
+            halign: 'right'
+          ToggleButton:
+            size_hint: .12, 1
+            text: 'خواننده'
+            halign: 'right'
+          ToggleButton:
+            size_hint: .43, 1
+            text: 'عنوان'
+            halign: 'right'
+          ToggleButton:
+            size_hint: .07, 1
+            text: 'کد'
+            halign: 'left'            
         ListView:
           size_hint: 1, .92
           adapter:
             adapters.TrackAdapter(template="DetailedListItem")
+        StackLayout:
+          orientation: 'rl-tb'
+          size_hint: 1, .04        
+            
+      #Right Pane
       Accordion:
         size_hint: .2, 1
         orientation: 'vertical'
@@ -95,22 +119,39 @@ Widget:
 
 <Label>:
   text_size: self.width - 20, None
+  font_size: self.height / 3
+  
+<ToggleButton>:
+  background_color: .2,.2,.2,1
 
 [DetailedListItem@SelectableView+BoxLayout]:
   size_hint_y: None
   height: 32
   orientation: 'horizontal'
   
-  Label:
-    size_hint: .3, 1
+  ListItemButton:
+    size_hint: .12, 1
+    text: '' if not ctx.model.genere else ctx.model.genere.title
+    halign: 'right'
+  ListItemButton:
+    size_hint: .12, 1
+    text: '' if not ctx.model.lyricist else ctx.model.lyricist.title
+    halign: 'right'
+  ListItemButton:
+    size_hint: .12, 1
     text: '' if not ctx.model.composer else ctx.model.composer.title
     halign: 'right'
   ListItemButton:
-    size_hint: .6, 1
+    size_hint: .12, 1
+    text: '' if not ctx.model.artist else ctx.model.artist.title
+    halign: 'right'
+  ListItemButton:
+    size_hint: .43, 1
     text: ctx.model.title
     halign: 'right'
   ListItemButton:
-    size_hint: .1, 1
+    size_hint: .07, 1
     text: ctx.model.code
     halign: 'left'
+    
         

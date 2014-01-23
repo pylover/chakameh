@@ -8,6 +8,7 @@ from kivy.uix.togglebutton import ToggleButton
 from kivy.properties import NumericProperty,StringProperty,ObjectProperty
 from kivy.uix.button import Button
 from kivy.uix.stacklayout import StackLayout
+from kivy.uix.videoplayer import VideoPlayer
 from kivy.clock import Clock 
 from sound import Sound
 import os.path
