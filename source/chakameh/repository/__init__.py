@@ -1,5 +1,5 @@
 
-from elixir import metadata,setup_all,session,create_all
+from elixir import session
 from elixir.options import options_defaults
 options_defaults['shortnames'] = True
 from .artist import Artist
@@ -9,13 +9,18 @@ from .lyricist import Lyricist
 from .genere import Genere
 from .composer import Composer
 import os.path
+thisdir = os.path.dirname(__file__)
+from elixir import metadata,setup_all,create_all
+
+def init():
+    metadata.bind = "sqlite:///%s" % os.path.abspath(os.path.join( thisdir, "../../.." ,"data/db.sqlite"))
+    metadata.bind.echo = False
+    setup_all()#create_tables=True)
+    create_all()        
 
 class Repository(object):
-    def __init__(self,dbsession=None):
-        metadata.bind = "sqlite:///%s" % os.path.abspath( os.path.join(os.path.dirname(__file__), "../../.." ,"data/db.sqlite"))
-        metadata.bind.echo = False
-        setup_all()#create_tables=True)
-        create_all()
+    def __init__(self):
+        pass
     
     def add_artist(self,title):
         if not title or title.strip()=='':
@@ -79,6 +84,8 @@ class Repository(object):
         
     def commit(self):
         session.commit()
+    
+    
     
     def get_artists(self):
         pass

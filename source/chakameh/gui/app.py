@@ -4,9 +4,12 @@ Created on:    Jan 17, 2014
 @author:        vahid
 '''
 from kivy.app import App
-#from chakameh.gui.player import MusicPlayer
+
 
 class ChakamehApp(App):
-    pass
-#     def build(self):
-#         return MusicPlayer()
+    def __init__(self):
+        App.__init__(self)
+#        self.bind(on_start=self.on_start)
+        
+    def on_start(self):
+        pass

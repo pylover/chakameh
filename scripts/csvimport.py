@@ -2,7 +2,7 @@
 
 from __future__ import print_function 
 import sys
-from chakameh.repository import Repository
+from chakameh.repository import Repository,init as repo_init
 import re   
 
 def read():
@@ -59,7 +59,7 @@ def parse():
         yield linetype, l
             
 def start():
-    
+    repo_init()
     repo = Repository()
     id = None
     category = None

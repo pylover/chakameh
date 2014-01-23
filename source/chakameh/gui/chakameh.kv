@@ -1,11 +1,35 @@
 #:import AudioPlayer chakameh.gui.player.AudioPlayer
 #:import PlayButton chakameh.gui.player.PlayButton
+#:import adapters chakameh.gui.adapters
+
+[AccordionItemTitle@Label]:
+  text: ctx.title
+  canvas.before:
+    Color:
+      rgb: 1, 1, 1
+    BorderImage:
+      source: 
+        ctx.item.background_normal \
+        if ctx.item.collapse \
+        else ctx.item.background_selected
+      pos: self.pos
+      size: self.size
+    PushMatrix
+    Translate:
+      xy: self.center_x, self.center_y
+    Rotate:
+      angle: 90 if ctx.item.orientation == 'horizontal' else 0
+      axis: 0, 0, 1
+    Translate:
+      xy: -self.center_x, -self.center_y
+  canvas.after:
+    PopMatrix
 
 Widget:
-  AnchorLayout:
+  BoxLayout:
     size: root.size
-    anchor_y: 'top'
-    anchor_x: 'center'
+    pos: root.pos
+    orientation: 'vertical'
     AudioPlayer:
       canvas:
         Color:
@@ -14,10 +38,36 @@ Widget:
           pos: self.pos
           size: self.size
       source: "/home/vahid/AptanaStudioWorkspace/chakameh/source/chakameh/gui/test.mp3"
-      size_hint: 1, 0.06
+      size_hint: 1, .08
       font_size: '20sp'
       text: 'vahid'
       color:200,0,0,1
-      
-      
-      
+    BoxLayout:
+      size_hint: 1, .92
+      orientation: 'horizontal'
+      Button:
+        size_hint: .8, 1
+      Accordion:
+        size_hint: .2, 1
+        orientation: 'vertical'
+        AccordionItem:          
+          title: 'خواننده'
+          ListView:
+            adapter:
+              adapters.ArtistAdapter()
+        AccordionItem:
+          title: 'آهنگساز'
+          ListView:
+            adapter:
+              adapters.ComposerAdapter()
+        AccordionItem:
+          title: 'شاعر'
+          ListView:
+            adapter:
+              adapters.LyricistAdapter()            
+        AccordionItem:
+          title: 'دستگاه'     
+          ListView:
+            adapter:
+              adapters.GenereAdapter()            
+            
