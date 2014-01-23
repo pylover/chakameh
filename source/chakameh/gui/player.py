@@ -12,6 +12,8 @@ from kivy.uix.videoplayer import VideoPlayer
 from kivy.clock import Clock 
 from sound import Sound
 import os.path
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.image import Image
 
 class States(object):
     DEACTIVATED = 0
@@ -19,39 +21,42 @@ class States(object):
     PLAYING = 2
     PAUSED = 3
 
-class PlayButton(ToggleButton):
-    padding=NumericProperty(5)
-    def __init__(self, **kwargs):
-        super(PlayButton,self).__init__(**kwargs)
-        self.bind(size=self.on_resize,pos=self.on_resize)
+class PlayButton(Image):
+    player = ObjectProperty()
+#     def __init__(self, **kwargs):
+#         super(PlayButton,self).__init__(**kwargs)
+#         self.bind(size=self.on_resize,pos=self.on_resize)
         
-    def on_press(self):
-        if self.parent:
+    def on_touch_down(self, touch):
+        '''.. versionchanged:: 1.4.0'''
+        if self.collide_point(*touch.pos):
             self.parent.play_pause()
-            
-    def on_parent(self,s,p):
-        self.parent.bind(player_state=self.on_player_state)
-        
-    def paint(self):
-        with self.canvas:
-            self.canvas.clear()
-            #Line(rectangle=(self.x,self.y,self.width , self.height))
-            
-            if self.parent.player_state == States.PLAYING:
-                w = (self.width - self.padding * 3) /2
-                Rectangle(pos=[self.x + self.padding,self.y+ self.padding],size=[w, self.height-self.padding*2])
-                Rectangle(pos=[self.x + self.padding*2 + w,self.y+self.padding],size=[w, self.height-self.padding*2])
-            else:
-                Line(width= 2,close= True,
-                  joint= "round",cap= "round",
-                  points= [self.x+self.padding,self.top-self.padding, self.right-self.padding,self.y + self.height / 2.0, self.x+self.padding, self.y+self.padding])            
-        
-            
-    def on_player_state(self,sender,new_state):
-        self.paint()
-                
-    def on_resize(self,s,e):
-        self.paint()
+            return True
+         
+#     def on_parent(self,s,p):
+#         self.parent.bind(player_state=self.on_player_state)
+#          
+#     def on_player_state(self,sender,new_state):
+#         self.paint()
+#         
+#     def paint(self):
+#         with self.canvas:
+#             self.canvas.clear()
+#             #Line(rectangle=(self.x,self.y,self.width , self.height))
+#              
+#             if self.parent.player_state == States.PLAYING:
+#                 w = (self.width - self.padding * 3) /2
+#                 Rectangle(pos=[self.x + self.padding,self.y+ self.padding],size=[w, self.height-self.padding*2])
+#                 Rectangle(pos=[self.x + self.padding*2 + w,self.y+self.padding],size=[w, self.height-self.padding*2])
+#             else:
+#                 Line(width= 2,close= True,
+#                   joint= "round",cap= "round",
+#                   points= [self.x+self.padding,self.top-self.padding, self.right-self.padding,self.y + self.height / 2.0, self.x+self.padding, self.y+self.padding])            
+#          
+#              
+#                  
+#     def on_resize(self,s,e):
+#         self.paint()
         
 class PrevButton(Button):
     padding=NumericProperty(5)
@@ -64,7 +69,7 @@ class NextButton(Button):
         Button.__init__(self,**kwargs)        
 
 
-class AudioPlayer(StackLayout):
+class AudioPlayer(BoxLayout):
     player_state = NumericProperty(States.DEACTIVATED)
     source = StringProperty(None)
     sound = ObjectProperty(None)

@@ -16,8 +16,8 @@ thisdir = os.path.dirname(__file__)
 
     
 def start(config_filename=None):
-    from kivy.lang import Builder
-    from kivy.logger import Logger
+#     from kivy.lang import Builder
+#     from kivy.logger import Logger
     from chakameh.gui.app import ChakamehApp
     
     
@@ -27,11 +27,11 @@ def start(config_filename=None):
     repo_init()
     
     
-    for root, _dirs, files in os.walk(thisdir):
-        files = [os.path.join(root, f) for f in files if re.match(fnmatch.translate('*.kv'),f)]
-        for f in files:
-            Logger.debug('loading style file: %s' % f)
-            Builder.load_file(f)
+#     for root, _dirs, files in os.walk(thisdir):
+#         files = [os.path.join(root, f) for f in files if re.match(fnmatch.translate('*.kv'),f)]
+#         for f in files:
+#             Logger.debug('loading style file: %s' % f)
+#             Builder.load_file(f)
     
     app = ChakamehApp()        
     app.run()

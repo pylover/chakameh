@@ -1,6 +1,7 @@
 #:import AudioPlayer chakameh.gui.player.AudioPlayer
 #:import PlayButton chakameh.gui.player.PlayButton
 #:import adapters chakameh.gui.adapters
+#:import States chakameh.gui.player.States
 
 [AccordionItemTitle@Label]:
   text: ctx.title
@@ -118,8 +119,9 @@ Widget:
     is_selected: False        
 
 <Label>:
-  text_size: self.width - 20, None
-  font_size: self.height / 3
+  font_name: 'IranianSans'
+  text_size: self.width - 10, None
+  font_size: 14
   
 <ToggleButton>:
   background_color: .2,.2,.2,1
@@ -133,18 +135,22 @@ Widget:
     size_hint: .12, 1
     text: '' if not ctx.model.genere else ctx.model.genere.title
     halign: 'right'
+    font_size: 10
   ListItemButton:
     size_hint: .12, 1
     text: '' if not ctx.model.lyricist else ctx.model.lyricist.title
     halign: 'right'
+    font_size: 10
   ListItemButton:
     size_hint: .12, 1
     text: '' if not ctx.model.composer else ctx.model.composer.title
     halign: 'right'
+    font_size: 10
   ListItemButton:
     size_hint: .12, 1
     text: '' if not ctx.model.artist else ctx.model.artist.title
     halign: 'right'
+    font_size: 10
   ListItemButton:
     size_hint: .43, 1
     text: ctx.model.title
@@ -154,4 +160,55 @@ Widget:
     text: ctx.model.code
     halign: 'left'
     
+<AudioPlayer>:
+  orientation: 'horizontal'
+  spacing: 4
+  # PrevButton:
+    # size_hint: .04,1
+  PlayButton:
+    size_hint_x: None
+    player: root
+    width: 44
+    source: 
+      'atlas://data/images/defaulttheme/media-playback-pause' if root.player_state == States.PLAYING \
+      else 'atlas://data/images/defaulttheme/media-playback-start'
+  Slider:
+    size_hint: .8,1
+    pos_hint_right: 0
+    value: root.position
+
+<PlayButton>:
+  text: ""
+  background_color: 0,0,0,0
+  padding: 17 * self.width / 100.0
+
+<PrevButton>:
+#  padding: 17 * self.width / 100.0
+  text: ""
+  background_color: 0,0,0,0
+  background_normal: 'atlas:///home/vahid/AptanaStudioWorkspace/kivy/kivy/data/images/defaulttheme/bubble_btn'
+  # canvas:
+    # Line:
+      # close: True
+      # joint: 'round'
+      # width: 2
+      # points: self.right-self.padding, self.top-self.padding, self.x+self.padding,self.y + self.height / 2.0, self.right-self.padding, self.y+self.padding
+    # Line:
+      # width: 2
+      # points: self.x + self.padding,self.y + self.padding, self.x+self.padding,self.top - self.padding
+
+<NextButton>:
+  padding: 17 * self.width / 100.0
+  text: ""
+  background_color: 0,0,0,0
+  canvas:
+    Line: 
+      close: True
+      joint: 'round'
+      width: 2
+      points: self.x+self.padding,self.top-self.padding, self.right-self.padding,self.y + self.height / 2.0, self.x+self.padding, self.y+self.padding
+    Line:
+      width: 2
+      points: self.right - self.padding,self.y + self.padding, self.right-self.padding,self.top - self.padding
+      
         
