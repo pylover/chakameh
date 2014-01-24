@@ -3,12 +3,8 @@
 Created on:    Jan 16, 2014
 @author:        vahid
 '''
-from kivy.graphics import Rectangle,Line
-from kivy.uix.togglebutton import ToggleButton
 from kivy.properties import NumericProperty,StringProperty,ObjectProperty
 from kivy.uix.button import Button
-from kivy.uix.stacklayout import StackLayout
-from kivy.uix.videoplayer import VideoPlayer
 from kivy.clock import Clock 
 from sound import Sound
 import os.path
@@ -95,9 +91,13 @@ class AudioPlayer(BoxLayout):
     def on_player_state(self,sender,new_state):
         pass
     
+    def set_position(self,value):
+        if abs( self.position - value)>1:
+            self.sound.position = value * self.sound.length / 100.0
+    
+    
     def update_position(self,e):
-        pass
-        #self.position = self.sound.position * 100 / self.sound.length
+        self.position = self.sound.position * 100.0 / self.sound.length
         
     def play_pause(self):
         if self.player_state == States.DEACTIVATED:
@@ -110,6 +110,6 @@ class AudioPlayer(BoxLayout):
             self.player_state = States.PLAYING
         elif self.player_state == States.STOPPED:
             self.sound.play()
-            Clock.schedule_interval(self.update_position,1)
+            Clock.schedule_interval(self.update_position,.2)
             self.player_state = States.PLAYING
 

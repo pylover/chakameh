@@ -34,8 +34,6 @@ Widget:
     AudioPlayer:
       source: "/home/vahid/AptanaStudioWorkspace/chakameh/source/chakameh/gui/test.mp3"
       size_hint: 1, .08
-      font_size: '20sp'
-      text: 'vahid'
       color: 1,0,0,1
     BoxLayout:
       size_hint: 1, .92
@@ -162,9 +160,7 @@ Widget:
     
 <AudioPlayer>:
   orientation: 'horizontal'
-  spacing: 4
-  # PrevButton:
-    # size_hint: .04,1
+  spacing: 4 
   PlayButton:
     size_hint_x: None
     player: root
@@ -173,9 +169,11 @@ Widget:
       'atlas://data/images/defaulttheme/media-playback-pause' if root.player_state == States.PLAYING \
       else 'atlas://data/images/defaulttheme/media-playback-start'
   Slider:
-    size_hint: .8,1
+    size_hint: .8, 1
     pos_hint_right: 0
     value: root.position
+    on_value: root.set_position(self.value)
+#    on_touch_up: root.set_position(self.value)
 
 <PlayButton>:
   text: ""
