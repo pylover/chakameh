@@ -1,7 +1,10 @@
 #:import AudioPlayer chakameh.gui.player.AudioPlayer
 #:import PlayButton chakameh.gui.player.PlayButton
+#:import Playlist chakameh.gui.playlist.Playlist
+#:import PlaylistRow chakameh.gui.playlist.PlaylistRow
 #:import adapters chakameh.gui.adapters
 #:import States chakameh.gui.player.States
+
 
 [AccordionItemTitle@Label]:
   text: ctx.title
@@ -32,15 +35,17 @@ Widget:
     pos: root.pos
     orientation: 'vertical'
     AudioPlayer:
-      source: "/home/vahid/AptanaStudioWorkspace/chakameh/source/chakameh/gui/test.mp3"
+      id: 'player'
       size_hint: 1, .08
       color: 1,0,0,1
+      source: "/home/vahid/AptanaStudioWorkspace/chakameh/source/chakameh/gui/test.mp3" if len(playlistview.adapter.selection) <= 0 else playlistview.adapter.selection[0].parent.model.filename
     BoxLayout:
       size_hint: 1, .92
       orientation: 'horizontal'
   
       # Main Detail View
-      BoxLayout:
+      Playlist:
+        id: playlist
         orientation: 'vertical'
         size_hint: .9, 1
         BoxLayout:
@@ -70,11 +75,13 @@ Widget:
           ToggleButton:
             size_hint: .07, 1
             text: 'کد'
-            halign: 'left'            
+            halign: 'left'
         ListView:
+          id: playlistview
           size_hint: 1, .92
           adapter:
-            adapters.TrackAdapter(template="DetailedListItem")
+            adapters.TrackAdapter(
+            template="DetailedListItem")
         StackLayout:
           orientation: 'rl-tb'
           size_hint: 1, .04        
@@ -124,11 +131,11 @@ Widget:
 <ToggleButton>:
   background_color: .2,.2,.2,1
 
-[DetailedListItem@SelectableView+BoxLayout]:
+[DetailedListItem@PlaylistRow]:
   size_hint_y: None
   height: 32
   orientation: 'horizontal'
-  
+  model: ctx.model
   ListItemButton:
     size_hint: .12, 1
     text: '' if not ctx.model.genere else ctx.model.genere.title
@@ -158,6 +165,7 @@ Widget:
     text: ctx.model.code
     halign: 'left'
     
+    
 <AudioPlayer>:
   orientation: 'horizontal'
   spacing: 4 
@@ -173,40 +181,10 @@ Widget:
     pos_hint_right: 0
     value: root.position
     on_value: root.set_position(self.value)
-#    on_touch_up: root.set_position(self.value)
 
 <PlayButton>:
   text: ""
   background_color: 0,0,0,0
   padding: 17 * self.width / 100.0
-
-<PrevButton>:
-#  padding: 17 * self.width / 100.0
-  text: ""
-  background_color: 0,0,0,0
-  background_normal: 'atlas:///home/vahid/AptanaStudioWorkspace/kivy/kivy/data/images/defaulttheme/bubble_btn'
-  # canvas:
-    # Line:
-      # close: True
-      # joint: 'round'
-      # width: 2
-      # points: self.right-self.padding, self.top-self.padding, self.x+self.padding,self.y + self.height / 2.0, self.right-self.padding, self.y+self.padding
-    # Line:
-      # width: 2
-      # points: self.x + self.padding,self.y + self.padding, self.x+self.padding,self.top - self.padding
-
-<NextButton>:
-  padding: 17 * self.width / 100.0
-  text: ""
-  background_color: 0,0,0,0
-  canvas:
-    Line: 
-      close: True
-      joint: 'round'
-      width: 2
-      points: self.x+self.padding,self.top-self.padding, self.right-self.padding,self.y + self.height / 2.0, self.x+self.padding, self.y+self.padding
-    Line:
-      width: 2
-      points: self.right - self.padding,self.y + self.padding, self.right-self.padding,self.top - self.padding
       
         

@@ -20,6 +20,8 @@ class BaseAdapter(ListAdapter):
             kwargs['template'] = 'SimpleListItem'
         super(BaseAdapter,self).__init__(**kwargs)
         
+    
+        
 
 class ComposerAdapter(BaseAdapter):
     def fetch_data(self,**kwargs):
@@ -51,6 +53,10 @@ class GenereAdapter(BaseAdapter):
         return len(self.data)
 
 class TrackAdapter(BaseAdapter):
+    def __init__(self,**kw):
+        kw['selection_limit'] = 10
+        super(TrackAdapter,self).__init__(**kw)
+        
     def fetch_data(self,**kwargs):
         return Track.query.order_by(Track.title).all()
         
@@ -60,4 +66,7 @@ class TrackAdapter(BaseAdapter):
     
     def get_count(self):
         return len(self.data)
+    
+    def on_selection_change(self,*args,**kw):
+        i = 0
 
