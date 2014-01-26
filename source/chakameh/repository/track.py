@@ -4,7 +4,7 @@ Created on:    Dec 29, 2013
 @author:        vahid
 '''
 
-from elixir import Entity,Field,Unicode,Integer,UnicodeText,Binary,ManyToOne
+from elixir import Entity,Field,Unicode,Integer,UnicodeText,Binary,ManyToOne,session
 from artist import Artist
 from category import Category
 from composer import Composer
@@ -28,6 +28,24 @@ class Track(Entity):
     comment = Field(UnicodeText,nullable=True)
     filename = Field(Unicode(500),nullable=True) # Relative to archive directpory 
     filemd5 = Field(Binary(16),nullable=True) #,unique=True,index=True)
+    
+    @classmethod
+    def ensure(cls,code,prime,**kw):
+        kw['code'] = code
+        kw['prime'] = prime
+        if 'title' not in kw:
+            kw['title'] = prime
+         
+        track = cls.query.filter(cls.code == code).first()
+        if not track:
+            track = cls(**kw)
+        else:
+            track.from_dict(kw)
+        
+        session.commit()
+        
+        return track
+    
     
     def __repr__(self):
         return '<Track "%s" (%s)>' % (self.title, self.code)

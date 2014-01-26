@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from __future__ import print_function 
 import sys
-from chakameh.repository import Repository,init as repo_init
+from chakameh.repository import Artist,Category,Composer,Genere,Lyricist
 import re   
 
 def read():
@@ -59,8 +60,7 @@ def parse():
         yield linetype, l
             
 def start():
-    repo_init()
-    repo = Repository()
+    
     id = None
     category = None
     mediano = None
@@ -72,18 +72,18 @@ def start():
     
     for linetype,line in parse():
         if linetype == LineTypes.CATEGORY:
-            category =  repo.add_category(line[0])
+            category =  Category.ensure(line[0])
         elif linetype == LineTypes.MEDIA_NO:
             mediano = re.match('^CD\s(?P<NO>\d{1,2})\s', line[0]).groups()[0]
         elif linetype == LineTypes.DATA:
             code = line[0]
             prime = line[1]
-            artist = repo.add_artist(line[2])
-            composer = repo.add_composer(line[3])
-            lyricist = repo.add_lyricist(line[4])
-            dastgah = repo.add_genere(line[5])
+            artist = Atist.ensure(line[2])
+            composer = Composer.ensure(line[3])
+            lyricist = Lyricist.ensure(line[4])
+            dastgah = Genere(line[5])
             
-            track = repo.add_track(code, prime,
+            track = Track.ensure(code, prime,
                            artist = artist,
                            composer = composer,
                            lyricist = lyricist,
