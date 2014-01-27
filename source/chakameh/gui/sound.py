@@ -88,6 +88,8 @@ from kivy.core.audio import SoundLoader
 class Sound(object):
     def __init__(self,filename):
         self.sound = SoundLoader.load(filename)
+        if self.sound == None:
+            raise Exception('cannot find loader for : %s' % filename)
         self.filename = filename
 
     def play(self):

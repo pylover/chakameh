@@ -20,4 +20,11 @@ metadata.bind.echo = False
 setup_all(create_tables=True)        
 
 
-
+__all__ = ['session',
+           'metadata',
+           'Artist',
+           'Category',
+           'Track',
+           'Lyricist',
+           'Genere',
+           'Composer']

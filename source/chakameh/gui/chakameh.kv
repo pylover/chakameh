@@ -38,7 +38,7 @@ Widget:
       id: 'player'
       size_hint: 1, .08
       color: 1,0,0,1
-      source: "/home/vahid/AptanaStudioWorkspace/chakameh/source/chakameh/gui/test.mp3" if len(playlistview.adapter.selection) <= 0 else playlistview.adapter.selection[0].parent.model.filename
+      source: None if len(playlistview.adapter.selection) <= 0 else playlistview.adapter.selection[0].parent.model.filename
     BoxLayout:
       size_hint: 1, .92
       orientation: 'horizontal'

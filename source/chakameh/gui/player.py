@@ -56,8 +56,8 @@ class AudioPlayer(BoxLayout):
     def on_source(self,*args):
         if self.source.strip() != '' and os.path.exists(self.source):
             self.player_state = States.STOPPED
+            self.stop()
             self.sound = Sound(self.source)
-            self.player_state = States.STOPPED
             self.play_pause()
         else:
             self.player_state = States.DEACTIVATED
@@ -71,7 +71,13 @@ class AudioPlayer(BoxLayout):
     
     
     def update_position(self,e):
-        self.position = self.sound.position * 100.0 / self.sound.length
+        if self.sound.length > 0:
+            self.position = self.sound.position * 100.0 / self.sound.length
+        
+    def stop(self):
+        if self.sound:
+            self.sound.stop()
+        self.player_state = States.STOPPED
         
     def play_pause(self):
         if self.player_state == States.DEACTIVATED:

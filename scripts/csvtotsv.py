@@ -2,7 +2,6 @@
 
 from __future__ import print_function
 import sys
-from chakameh.repository import Repository
 
 def read(): 
     c,l= 0,0

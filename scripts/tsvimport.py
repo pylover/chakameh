@@ -3,12 +3,12 @@
 
 from __future__ import print_function 
 import sys
-from chakameh.repository import Artist,Category,Composer,Genere,Lyricist
+from chakameh.repository import Artist,Category,Composer,Genere,Lyricist,Track
 import re   
 
 def read():
     #reader = sys.stdin
-    reader = open('../docs/tables.tsv')
+    reader = open('../docs/table.tsv')
     l = 0
     try:
         for line in reader.readlines():
@@ -78,10 +78,10 @@ def start():
         elif linetype == LineTypes.DATA:
             code = line[0]
             prime = line[1]
-            artist = Atist.ensure(line[2])
+            artist = Artist.ensure(line[2])
             composer = Composer.ensure(line[3])
             lyricist = Lyricist.ensure(line[4])
-            dastgah = Genere(line[5])
+            dastgah = Genere.ensure(line[5])
             
             track = Track.ensure(code, prime,
                            artist = artist,
@@ -93,12 +93,12 @@ def start():
             print('\t'.join([ str(track.id),
                               code,
                               mediano,
-                              str(category),
+                              unicode(category),
                               prime,
-                              str(artist),
-                              str(composer),
-                              str(lyricist),
-                              str(dastgah)]).encode('utf8'))
+                              unicode(artist),
+                              unicode(composer),
+                              unicode(lyricist),
+                              unicode(dastgah)]).encode('utf8'))
     
     #print(set(counts))
 if __name__ == '__main__':

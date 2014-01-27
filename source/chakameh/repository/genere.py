@@ -11,7 +11,7 @@ class Genere(Entity):
     tracks = OneToMany('Track')
     
     @classmethod
-    def add_genere(cls,title):
+    def ensure(cls,title):
         if not title or title.strip()=='':
             return None
         genere = cls.query.filter(cls.title == title).first()
