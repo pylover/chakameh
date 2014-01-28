@@ -7,7 +7,7 @@ Widget:
     pos: root.pos
     orientation: 'vertical'
     AudioPlayer:
-      id: 'player'
+      id: player
       size_hint: 1, .08
       color: 1,0,0,1
     BoxLayout:
@@ -54,22 +54,34 @@ Widget:
           size_hint: 1, .04        
             
       #Right Pane
-      Accordion:
+      BoxLayout:
         size_hint: .2, 1
         orientation: 'vertical'
-        AccordionItem:          
-          title: 'خواننده'
-          ListView:
-            adapter: adapters.ArtistAdapter()
-        AccordionItem:
-          title: 'شاعر'
-          ListView:
-            adapter: adapters.LyricistAdapter()            
-        AccordionItem:
-          title: 'دستگاه'     
-          ListView:
-            adapter: adapters.GenereAdapter()            
-        AccordionItem:
-          title: 'آهنگساز'
-          ListView:
-            adapter: adapters.ComposerAdapter()
+        TextInput:
+          id: search
+          size_hint_y: None
+          height: 32
+              
+        Accordion:
+          size_hint: 1, 1
+          orientation: 'vertical'
+          AccordionItem:
+            title: 'خواننده'
+            ListView:
+              id: artists
+              adapter: adapters.ArtistAdapter()
+          AccordionItem:
+            title: 'شاعر'
+            ListView:
+              id: lyricists
+              adapter: adapters.LyricistAdapter()            
+          AccordionItem:
+            title: 'دستگاه'
+            ListView:
+              id: generes
+              adapter: adapters.GenereAdapter()            
+          AccordionItem:
+            title: 'آهنگساز'
+            ListView:
+              id: composers
+              adapter: adapters.ComposerAdapter()

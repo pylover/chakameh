@@ -5,10 +5,6 @@ Created on:    Jan 27, 2014
 '''
 
 from kivy.app import App
-# from chakameh.uix.adapters import TrackAdapter
-# from kivy.uix.listview import CompositeListItem, ListItemButton, ListItemLabel
-#from kivy.clock import Clock
-#from kivy.uix.listview import ListView
 from kivy.lang import Builder
 import os.path
 
@@ -20,24 +16,46 @@ class ChakamehApp(App):
         self.kv_files = [os.path.join(self.appdir,'views',f) for f in ['global.kv','player.kv','rightpane.kv','playlist.kv']]
         self.root_kv_file = os.path.join(self.appdir,'views','root.kv')
 
+    def get_widget(self,id):
+        return self.root.ids[id]
+
     def build(self):
         for f in self.kv_files:
             Builder.load_file(f, rulesonly=True)
                     
         root = Builder.load_file(self.root_kv_file)
-        print root.ids
-
         return root
-
-#      source: '' if not playlistview.adapter.selection else playlistview.adapter.selection[0].parent.model.filename        
-#        self.root.ids['player'].source = 
-
-    def update_tracks(self,dt):
-        pass
-        #self.root.canvas.ask_update()
-
+    
+    def on_track_selection(self,adapter):
+        player = self.get_widget('player')
+        if not adapter.selection:
+            return
+        selected = adapter.selection[0]
+        
+        if hasattr(selected,'model'):
+            model = selected.model
+        else:
+            model = selected.parent.model
+            
+        player.source = model.filename
+    
+    @property
+    def tracks_adapter(self):
+        return self.get_widget('playlist').adapter
+    
+    def on_filter(self,adapter):
+        self.tracks_adapter.filter(adapter.selection[0].parent.model)
+    
+    def on_search(self,textinput, value):
+        self.tracks_adapter.search(value)
+    
     def on_start(self):
-        pass
-        #Clock.schedule_interval(self.update_tracks,1)
+        self.tracks_adapter.bind(on_selection_change=self.on_track_selection)
+        self.get_widget('artists').adapter.bind(on_selection_change=self.on_filter)
+        self.get_widget('lyricists').adapter.bind(on_selection_change=self.on_filter)
+        self.get_widget('composers').adapter.bind(on_selection_change=self.on_filter)
+        self.get_widget('generes').adapter.bind(on_selection_change=self.on_filter)
+        self.get_widget('search').bind(text=self.on_search)
+        
         
         
