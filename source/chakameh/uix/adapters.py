@@ -46,27 +46,48 @@ class ArtistAdapter(BaseAdapter):
         return len(self.data)
 
 class GenereAdapter(BaseAdapter):
+    
+    def __init__(self,**kw):
+        self.cur = 0
+        super(GenereAdapter,self).__init__(**kw)
+        Clock.schedule_interval(self.update_data,1)
+
+    def update_data(self,dt):
+        self.data.append(Genere.query[self.cur])
+        self.cur+=1    
+    
     def fetch_data(self,**kwargs):
-        return Genere.query.order_by(Genere.title).all()
+        return [] #Genere.query.order_by(Genere.title).all()
         
     def get_count(self):
         return len(self.data)
 
-class TrackAdapter(BaseAdapter):
+from kivy.clock import Clock
+class TrackAdapter(ListAdapter):
+    
     def __init__(self,**kw):
         kw['selection_limit'] = 10
+        self.cur = 0
         super(TrackAdapter,self).__init__(**kw)
+        Clock.schedule_interval(self.update_data,1)
+
+    def update_data(self,dt):
+        d = Track.query[self.cur]
+        print d
+        self.data.append(d)
+        self.cur+=1
         
     def fetch_data(self,**kwargs):
-        return Track.query.order_by(Track.title).all()
+        return [] #Track.query.order_by(Track.title).limit(10).all()
         
     def get_header(self):
         return [Track(title=u'عنوان',
                      composer=Composer(title=u'آهنگساز'))]
     
-    def get_count(self):
-        return len(self.data)
+#     def get_count(self):
+#         return len(self.data)
     
-    def on_selection_change(self,*args,**kw):
-        i = 0
+    
+#     def on_selection_change(self,*args,**kw):
+#         self.data.remove(self.data[-1])
 

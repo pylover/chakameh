@@ -11,6 +11,8 @@ import os.path
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 
+
+
 class States(object):
     DEACTIVATED = 0
     STOPPED = 1

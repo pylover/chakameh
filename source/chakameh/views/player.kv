@@ -1,0 +1,24 @@
+#:import AudioPlayer chakameh.uix.player.AudioPlayer
+#:import PlayButton chakameh.uix.player.PlayButton
+
+<AudioPlayer>:
+  orientation: 'horizontal'
+  spacing: 4 
+  PlayButton:
+    size_hint_x: None
+    player: root
+    width: 44
+    source: 
+      'atlas://data/images/defaulttheme/media-playback-pause' if root.player_state == States.PLAYING \
+      else 'atlas://data/images/defaulttheme/media-playback-start'
+  Slider:
+    size_hint: .8, 1
+    pos_hint_right: 0
+    value: root.position
+    on_value: root.set_position(self.value)
+
+<PlayButton>:
+  text: ""
+  background_color: 0,0,0,0
+  padding: 17 * self.width / 100.0
+      

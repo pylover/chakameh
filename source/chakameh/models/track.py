@@ -10,8 +10,9 @@ from category import Category
 from composer import Composer
 from lyricist import Lyricist
 from genere import Genere
+from kivy.adapters.models import SelectableDataItem
 
-class Track(Entity):
+class Track(Entity,SelectableDataItem):
     code = Field(Unicode(50),unique=True,index=True,nullable=False) 
     title = Field(Unicode(500))
     prime = Field(Unicode(500))

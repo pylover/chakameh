@@ -1,0 +1,151 @@
+#:import Playlist chakameh.uix.playlist.Playlist
+#:import PlaylistRow chakameh.uix.playlist.PlaylistRow
+#:import adapters chakameh.gui.adapters
+
+[AccordionItemTitle@Label]:
+  text: ctx.title
+  canvas.before:
+    Color:
+      rgb: 1, 1, 1
+    BorderImage:
+      source: 
+        ctx.item.background_normal \
+        if ctx.item.collapse \
+        else ctx.item.background_selected
+      pos: self.pos
+      size: self.size
+    PushMatrix
+    Translate:
+      xy: self.center_x, self.center_y
+    Rotate:
+      angle: 90 if ctx.item.orientation == 'horizontal' else 0
+      axis: 0, 0, 1
+    Translate:
+      xy: -self.center_x, -self.center_y
+  canvas.after:
+    PopMatrix
+
+
+
+
+[SimpleListItem@SelectableView+BoxLayout]:
+  size_hint_y: None
+  height: 32
+  ListItemButton:
+    text: ctx.model.title
+    is_selected: False        
+
+
+
+# [DetailedListItem@PlaylistRow]:
+  # size_hint_y: None
+  # height: 32
+  # orientation: 'horizontal'
+  # model: ctx.model
+  # ListItemButton:
+    # size_hint: .12, 1
+    # text: '' if not ctx.model.genere else ctx.model.genere.title
+    # halign: 'right'
+    # font_size: 10
+  # ListItemButton:
+    # size_hint: .12, 1
+    # text: '' if not ctx.model.lyricist else ctx.model.lyricist.title
+    # halign: 'right'
+    # font_size: 10
+  # ListItemButton:
+    # size_hint: .12, 1
+    # text: '' if not ctx.model.composer else ctx.model.composer.title
+    # halign: 'right'
+    # font_size: 10
+  # ListItemButton:
+    # size_hint: .12, 1
+    # text: '' if not ctx.model.artist else ctx.model.artist.title
+    # halign: 'right'
+    # font_size: 10
+  # ListItemButton:
+    # size_hint: .43, 1
+    # text: ctx.model.title
+    # halign: 'right'
+  # ListItemButton:
+    # size_hint: .07, 1
+    # text: ctx.model.code
+    # halign: 'left'
+    
+
+Widget:
+  BoxLayout:
+    size: root.size
+    pos: root.pos
+    orientation: 'vertical'
+    AudioPlayer:
+      id: 'player'
+      size_hint: 1, .08
+      color: 1,0,0,1
+    BoxLayout:
+      size_hint: 1, .92
+      orientation: 'horizontal'
+
+      # Main Detail View
+      Playlist:
+        id: playlist
+        orientation: 'vertical'
+        size_hint: .9, 1
+        BoxLayout:
+          orientation: 'horizontal'
+          size_hint: 1, None
+          height: 32
+          ToggleButton:
+            size_hint: .12, 1
+            text: 'دستگاه'
+            halign: 'right'
+          ToggleButton:
+            size_hint: .12, 1
+            text: 'شاعر'
+            halign: 'right'
+          ToggleButton:
+            size_hint: .12, 1
+            text: 'آهنگساز'
+            halign: 'right'
+          ToggleButton:
+            size_hint: .12, 1
+            text: 'خواننده'
+            halign: 'right'
+          ToggleButton:
+            size_hint: .43, 1
+            text: 'عنوان'
+            halign: 'right'
+          ToggleButton:
+            size_hint: .07, 1
+            text: 'کد'
+            halign: 'left'
+        ListView:
+          id: playlistview
+          size_hint: 1, .92         
+        StackLayout:
+          orientation: 'rl-tb'
+          size_hint: 1, .04        
+            
+      #Right Pane
+      Accordion:
+        size_hint: .2, 1
+        orientation: 'vertical'
+        AccordionItem:          
+          title: 'خواننده'
+          ListView:
+            adapter:
+              adapters.ArtistAdapter()
+        AccordionItem:
+          title: 'شاعر'
+          ListView:
+            adapter:
+              adapters.LyricistAdapter()            
+        AccordionItem:
+          title: 'دستگاه'     
+          ListView:
+            adapter:
+              adapters.GenereAdapter()            
+        AccordionItem:
+          title: 'آهنگساز'
+          ListView:
+            adapter:
+              adapters.ComposerAdapter()
