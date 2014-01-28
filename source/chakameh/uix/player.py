@@ -3,15 +3,13 @@
 Created on:    Jan 16, 2014
 @author:        vahid
 '''
+import os.path
 from kivy.properties import NumericProperty,StringProperty,ObjectProperty
 from kivy.uix.button import Button
 from kivy.clock import Clock 
-from sound import Sound
-import os.path
+from chakameh.audio.sound import Sound
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
-
-
 
 class States(object):
     DEACTIVATED = 0

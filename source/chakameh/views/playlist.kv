@@ -1,0 +1,36 @@
+#:import PlaylistRow chakameh.uix.playlist.PlaylistRow
+
+[DetailedListItem@PlaylistRow]:
+  size_hint_y: None
+  height: 32
+  orientation: 'horizontal'
+  model: ctx.model
+  ListItemButton:
+    size_hint: .12, 1
+    text: '' if not ctx.model.genere else ctx.model.genere.title
+    halign: 'right'
+    font_size: 10
+  ListItemButton:
+    size_hint: .12, 1
+    text: '' if not ctx.model.lyricist else ctx.model.lyricist.title
+    halign: 'right'
+    font_size: 10
+  ListItemButton:
+    size_hint: .12, 1
+    text: '' if not ctx.model.composer else ctx.model.composer.title
+    halign: 'right'
+    font_size: 10
+  ListItemButton:
+    size_hint: .12, 1
+    text: '' if not ctx.model.artist else ctx.model.artist.title
+    halign: 'right'
+    font_size: 10
+  ListItemButton:
+    size_hint: .43, 1
+    text: ctx.model.title
+    halign: 'right'
+  ListItemButton:
+    size_hint: .07, 1
+    text: ctx.model.code
+    halign: 'left'
+    
