@@ -79,7 +79,8 @@ class TrackAdapter(BaseAdapter):
     
     def filter(self,model):
         self.clear_filters()
-        self.filters[model.__class__.__name__] = model
+        if model:
+            self.filters[model.__class__.__name__] = model
         self.data = self.fetch_data()
             
     def search(self,value):

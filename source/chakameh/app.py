@@ -44,7 +44,10 @@ class ChakamehApp(App):
         return self.get_widget('playlist').adapter
     
     def on_filter(self,adapter):
-        self.tracks_adapter.filter(adapter.selection[0].parent.model)
+        if len(adapter.selection):
+            self.tracks_adapter.filter(adapter.selection[0].parent.model)
+        else:
+            self.tracks_adapter.filter(None)
     
     def on_search(self,textinput, value):
         self.tracks_adapter.search(value)
