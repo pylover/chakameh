@@ -7,6 +7,7 @@ Created on:    Jan 27, 2014
 from kivy.app import App
 from kivy.lang import Builder
 import os.path
+import cProfile
 
 class ChakamehApp(App):
     def __init__(self):
@@ -53,6 +54,8 @@ class ChakamehApp(App):
         self.tracks_adapter.search(value)
     
     def on_start(self):
+#         self.profile = cProfile.Profile()
+#         self.profile.enable()
         self.tracks_adapter.bind(on_selection_change=self.on_track_selection)
         self.get_widget('artists').adapter.bind(on_selection_change=self.on_filter)
         self.get_widget('lyricists').adapter.bind(on_selection_change=self.on_filter)
@@ -60,5 +63,9 @@ class ChakamehApp(App):
         self.get_widget('generes').adapter.bind(on_selection_change=self.on_filter)
         self.get_widget('search').bind(text=self.on_search)
         
+
+#     def on_stop(self):
+#         self.profile.disable()
+#         self.profile.dump_stats('myapp.profile')        
         
         
