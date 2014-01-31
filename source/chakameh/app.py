@@ -38,6 +38,7 @@ class ChakamehApp(App):
         else:
             model = selected.parent.model
             
+        #player.source = "D:\\Kivy-w32\\test.mp3" #model.filename
         player.source = model.filename
     
     @property

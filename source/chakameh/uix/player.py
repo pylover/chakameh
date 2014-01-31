@@ -58,6 +58,7 @@ class AudioPlayer(BoxLayout):
             self.player_state = States.STOPPED
             self.stop()
             self.sound = Sound(self.source)
+            print self.source
             self.play_pause()
         else:
             self.player_state = States.DEACTIVATED
