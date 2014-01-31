@@ -83,10 +83,13 @@ pygame.init()
 #         return music.get_pos()
 
 from kivy.core.audio import SoundLoader
-
+import os.path
+from chakameh.config import config
 
 class Sound(object):
     def __init__(self,filename):
+        filename = os.path.join(config.media_root, filename)
+        print filename
         self.sound = SoundLoader.load(filename)
         if self.sound == None:
             raise Exception('cannot find loader for : %s' % filename)
@@ -107,7 +110,8 @@ class Sound(object):
     @property
     def length(self):
         if self.sound:
-            return self.sound.get_length()
+            #return self.sound.get_length() linux
+            return self.sound._get_length() #windows
         return 0
     
     def _get_position(self):

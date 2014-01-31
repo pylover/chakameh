@@ -54,12 +54,11 @@ class AudioPlayer(BoxLayout):
     def on_resize(self,*args):
         pass
     
-    def on_source(self,*args):
-        if self.source.strip() != '' and os.path.exists(self.source):
+    def on_source(self,*args): 
+        if self.source.strip():
             self.player_state = States.STOPPED
             self.stop()
             self.sound = Sound(self.source)
-            print config.media_root
             self.play_pause()
         else:
             self.player_state = States.DEACTIVATED
