@@ -10,6 +10,7 @@ from kivy.clock import Clock
 from chakameh.audio.sound import Sound
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
+from chakameh.config import config
 
 class States(object):
     DEACTIVATED = 0
@@ -58,7 +59,7 @@ class AudioPlayer(BoxLayout):
             self.player_state = States.STOPPED
             self.stop()
             self.sound = Sound(self.source)
-            print self.source
+            print config.media_root
             self.play_pause()
         else:
             self.player_state = States.DEACTIVATED
