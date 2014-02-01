@@ -37,7 +37,7 @@ class Sound(object):
 
     def _set_position(self,value):
         if self.sound:
-            self.sound.seek(value) / 1000.0
+            self.sound.seek(value / 1000.0)
 
     position = property(_get_position,_set_position)
 
