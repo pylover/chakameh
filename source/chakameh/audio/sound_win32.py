@@ -36,7 +36,9 @@ class _mci:
 # TODO: detect errors in all mci calls
 class Sound(object):
     def __init__(self, filename):
+        
         filename = filename.replace('/', '\\')
+        
         self.filename = filename
         self._alias = 'mp3_%s' % str(random.random())
 
@@ -55,7 +57,7 @@ class Sound(object):
 
     def play(self, start_ms=None, end_ms=None):
         start_ms = 0 if not start_ms else start_ms
-        end_ms = self.length() if not end_ms else end_ms
+        end_ms = self._length_ms if not end_ms else end_ms
         err,buf=self._mci.directsend('play %s from %d to %d'
                 % (self._alias, start_ms, end_ms) )
 
@@ -79,6 +81,7 @@ class Sound(object):
         self._mci.directsend('stop %s' % self._alias)
         self._mci.directsend('seek %s to start' % self._alias)
 
+    @property
     def length(self):
         """ Miliseconds """
         return self._length_ms
@@ -100,43 +103,3 @@ class Sound(object):
     def __del__(self):
         self._mci.directsend('close %s' % self._alias)
 
-# from datetime import datetime
-# 
-# class Sound(object):
-#     def __init__(self,filename):
-#         self.sound = mp3play.load(filename)
-#         if self.sound == None:
-#             raise Exception('cannot find loader for : %s' % filename)
-#         self.filename = filename
-# 
-#     def play(self):
-#         self.sound.play()
-# 
-#     def pause(self):
-#         self.sound.pause()
-#          
-#     def unpause(self):
-#         self.sound.unpause()
-#                      
-#     def stop(self):
-#         self.sound.stop()
-#          
-#     @property
-#     def length(self):
-#         """ Miliseconds """
-#         if self.sound:
-#             return self.sound.get_length()
-#         return 0
-#     
-#     def _get_position(self):
-#         """ Miliseconds """
-#         if self.sound:
-#             return self.sound.get_pos()
-#         return 0
-# 
-#     def _set_position(self,value):
-#         """ Miliseconds """
-#         if self.sound:
-#             self.sound.seek(value)
-# 
-#     position = property(_get_position,_set_position)
