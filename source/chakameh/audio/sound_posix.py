@@ -5,8 +5,6 @@ Created on:    Jan 23, 2014
 '''
 from kivy.core.audio import SoundLoader
 
-
-
 class Sound(object):
     def __init__(self,filename):
         self.sound = SoundLoader.load(filename)
