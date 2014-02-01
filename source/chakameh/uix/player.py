@@ -7,7 +7,7 @@ import os.path
 from kivy.properties import NumericProperty,StringProperty,ObjectProperty
 from kivy.uix.button import Button
 from kivy.clock import Clock 
-from chakameh.audio.sound import Sound
+from chakameh.audio import Sound
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from chakameh.config import config
