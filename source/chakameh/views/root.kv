@@ -1,4 +1,4 @@
-#:import Playlist chakameh.uix.playlist.Playlist
+
 #:import adapters chakameh.uix.adapters
 
 Widget:
@@ -48,10 +48,11 @@ Widget:
             halign: 'left'
         Playlist:
           id: playlist
-          size_hint: 1, .92         
-        StackLayout:
-          orientation: 'rl-tb'
-          size_hint: 1, .04        
+          size_hint: 1, .82         
+        MediaArt:
+          size_hint: 1, .14
+          on_expand: playlist.size_hint_y = .14; self.size_hint_y = .82
+          on_collapse: playlist.size_hint_y = .82; self.size_hint_y = .14
             
       #Right Pane
       BoxLayout:

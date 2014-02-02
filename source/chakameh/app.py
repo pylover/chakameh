@@ -14,7 +14,11 @@ class ChakamehApp(App):
         App.__init__(self)
         self.appdir = os.path.abspath(os.path.dirname(__file__))
         
-        self.kv_files = [os.path.join(self.appdir,'views',f) for f in ['global.kv','player.kv','rightpane.kv','playlist.kv']]
+        self.kv_files = [os.path.join(self.appdir,'views',f) for f in ['global.kv',
+                                                                       'player.kv',
+                                                                       'rightpane.kv',
+                                                                       'playlist.kv',
+                                                                       'mediaart.kv']]
         self.root_kv_file = os.path.join(self.appdir,'views','root.kv')
 
     def get_widget(self,id):
