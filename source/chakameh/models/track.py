@@ -6,10 +6,10 @@ Created on:    Dec 29, 2013
 
 from elixir import Entity,Field,Unicode,Integer,UnicodeText,Binary,ManyToOne,session
 from artist import Artist
-from category import Category
 from composer import Composer
 from lyricist import Lyricist
 from genere import Genere
+from category import Category
 from kivy.adapters.models import SelectableDataItem
 
 class Track(Entity,SelectableDataItem):
@@ -17,11 +17,11 @@ class Track(Entity,SelectableDataItem):
     title = Field(Unicode(500))
     prime = Field(Unicode(500))
     artist = ManyToOne(Artist,required=False)
-    category = ManyToOne(Category)
     composer = ManyToOne(Composer,required=False,lazy=True,
                          primaryjoin=lambda: Composer.id == Track.composer_id,
                          foreign_keys=lambda: [Track.composer_id])
     genere = ManyToOne(Genere,required=False)
+    category = ManyToOne(Category,required=False)
     lyricist = ManyToOne(Lyricist,required=False)
     album = Field(Unicode(500),required=False)
     year = Field(Integer,nullable=True)

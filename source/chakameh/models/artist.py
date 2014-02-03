@@ -5,9 +5,10 @@ Created on:    Jan 21, 2014
 '''
 
 from elixir import Entity,Field,Unicode,OneToMany,session 
+from chakameh.models.artable import Artable
 
 
-class Artist(Entity):
+class Artist(Entity,Artable):
     title = Field(Unicode(500),unique=True,nullable=False,index=True)
     tracks = OneToMany('Track')
 
@@ -20,6 +21,13 @@ class Artist(Entity):
             artist = cls(title = title)
             session.commit()
         return artist
+
+    # Artable methods
+    def get_tags(self):
+        return []
+    
+    def get_arts_directory(self):
+        return 'Artists'
     
     def __repr__(self):
         return '<Artist %s\t%s >' % (self.id,self.title)

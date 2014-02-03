@@ -1,0 +1,9 @@
+
+rebuild database:
+
+	table.odt -> table.csv
+	$ cd /home/vahid/AptanaStudioWorkspace/chakameh/scripts
+	$ ./csvtotsv.py < ../docs/table.csv > ../docs/table.tsv
+	$ ./tsvimport.py < ../docs/table.tsv
+	$ ./findfilenames.py 
+	$ ./extract_artists

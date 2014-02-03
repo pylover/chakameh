@@ -2,7 +2,8 @@
 
 import os
 import re
-from chakameh.repository import Track, session
+from chakameh.models import Track, session
+from chakameh.config import config
 
 def update_tracks(dir,code):
     pass
@@ -51,9 +52,9 @@ def scan():
                                 # Track found exactly
                                 new_filename = os.path.abspath(os.path.join(fullpath,f))
                                 if track.filename != new_filename:
-                                     track.filename = new_filename 
-                                     session.commit()
-                                     _found += 1
+                                    track.filename = os.path.relpath(new_filename,config.media_root)
+                                    session.commit()
+                                    _found += 1
                                      #yield 'FOUND', code , subcode
                             else:
                                 pass

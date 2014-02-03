@@ -91,3 +91,15 @@ class TrackAdapter(BaseAdapter):
     def get_header(self):
         return [Track(title=u'عنوان',
                      composer=Composer(title=u'آهنگساز'))]
+        
+    def select_next_track(self):
+        if len(self.selection):
+            selected = self.selection[0].parent
+            next = self.get_view(selected.row_index + 1)
+            if not next:
+                next = self.get_view(0)
+            if next:
+                self.selection[0].deselect()
+                self.deselect_item_view(self.selection[0])
+                self.select_list([next.children[1]],extend=False)
+                

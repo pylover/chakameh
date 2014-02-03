@@ -13,7 +13,9 @@ class Playlist(ListView):
     def __init__(self,**kw):
         if not 'adapter' in kw:
             kw['adapter'] = TrackAdapter(template='DetailedListItem',
-                                         propagate_selection_to_data=False)
+                                         selection_mode='single',
+                                         propagate_selection_to_data=False,
+                                         )
 
         super(Playlist,self).__init__(**kw)
     

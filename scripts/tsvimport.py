@@ -3,7 +3,7 @@
 
 from __future__ import print_function 
 import sys
-from chakameh.repository import Artist,Category,Composer,Genere,Lyricist,Track
+from chakameh.models import Artist,Composer,Genere,Lyricist,Track,Category
 import re   
 
 def read():

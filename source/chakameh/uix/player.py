@@ -48,7 +48,8 @@ class AudioPlayer(BoxLayout):
                   size=self.on_resize,
                   pos=self.on_resize,
                   source=self.on_source)
-        
+        self.register_event_type('on_track_start')
+        self.register_event_type('on_track_end')
         super(AudioPlayer, self).__init__(**kwargs)
     
     def on_resize(self,*args):
@@ -69,6 +70,8 @@ class AudioPlayer(BoxLayout):
         pass
     
     def set_position(self,value):
+        if not self.sound:
+            return
         if abs( self.position - value)>1:
             self.sound.position = value * self.sound.length / 100.0
     
@@ -76,6 +79,8 @@ class AudioPlayer(BoxLayout):
     def update_position(self,e):
         if self.sound.length > 0:
             self.position = self.sound.position * 100.0 / self.sound.length
+            if abs(self.sound.position - self.sound.length) < 100:
+                self.dispatch('on_track_end')
         
     def stop(self):
         if self.sound:
@@ -92,7 +97,13 @@ class AudioPlayer(BoxLayout):
             self.sound.unpause()
             self.player_state = States.PLAYING
         elif self.player_state == States.STOPPED:
+            self.dispatch('on_track_start')
             self.sound.play()
             Clock.schedule_interval(self.update_position,.2)
             self.player_state = States.PLAYING
 
+    def on_track_end(self,*args,**kw):
+        pass
+
+    def on_track_start(self,*args,**kw):
+        pass

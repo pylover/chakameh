@@ -43,7 +43,12 @@ class ChakamehApp(App):
             model = selected.parent.model
             
         #player.source = "D:\\Kivy-w32\\test.mp3" #model.filename
-        player.source = model.filename
+        if player.source == model.filename:
+            player.source = model.filename
+            prop = player.property('source') 
+            prop.dispatch(player.__self__)
+        else:
+            player.source = model.filename
     
     @property
     def tracks_adapter(self):
@@ -58,10 +63,19 @@ class ChakamehApp(App):
     def on_search(self,textinput, value):
         self.tracks_adapter.search(value)
     
+    def on_track_end(self,player):
+        pl = self.get_widget('playlist')
+        pl.adapter.select_next_track()
+
+    def on_track_start(self,player):
+        print player.source
+    
     def on_start(self):
 #         self.profile = cProfile.Profile()
 #         self.profile.enable()
         self.tracks_adapter.bind(on_selection_change=self.on_track_selection)
+        self.get_widget('player').bind(on_track_end=self.on_track_end,
+                                       on_track_start=self.on_track_start)
         self.get_widget('artists').adapter.bind(on_selection_change=self.on_filter)
         self.get_widget('lyricists').adapter.bind(on_selection_change=self.on_filter)
         self.get_widget('composers').adapter.bind(on_selection_change=self.on_filter)
