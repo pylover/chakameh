@@ -9,6 +9,7 @@ track names
 replace ي with ی
 remove all vahid's, too important
 volume
+kivy.factory
 +play next track
 +Windows sound
 +cd
