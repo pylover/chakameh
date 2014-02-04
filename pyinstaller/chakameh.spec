@@ -1,11 +1,10 @@
 # -*- mode: python -*-
 
 from kivy.tools.packaging.pyinstaller_hooks import install_hooks
-install_hooks(globals())
+install_hooks(globals(),hookspath=['../pyinstaller/hooks'])
 
 a = Analysis(['../source/chakameh.py'],
              hiddenimports=[],
-			 hookspath='../pyinstaller/hooks',
              runtime_hooks=None)
 pyz = PYZ(a.pure)
 exe = EXE(pyz,
