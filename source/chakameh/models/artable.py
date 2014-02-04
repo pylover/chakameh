@@ -16,8 +16,6 @@ def _get_media_list(directory):
                 if filename.endswith(ext):
                     yield os.path.abspath(os.path.join(dirname, filename))
                     break
-    
-    
 
 class Artable(object):
     
