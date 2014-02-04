@@ -10,7 +10,7 @@ from elixir import Entity,Field,Unicode,OneToMany,session
 class Category(Entity):
     title = Field(Unicode(500),unique=True,nullable=False,index=True)
     tracks = OneToMany('Track')
-
+    
     @classmethod
     def ensure(cls,title):
         if not title or title.strip()=='':

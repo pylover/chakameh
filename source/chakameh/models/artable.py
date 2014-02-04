@@ -22,8 +22,7 @@ def _get_media_list(directory):
 class Artable(object):
     
     def get_tags(self):
-        """ abstract """
-        raise NotImplementedError
+        return self.tags.split(',')
     
     def get_arts_directory(self):
         """ abstract """

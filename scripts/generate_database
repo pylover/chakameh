@@ -1,0 +1,14 @@
+#! /bin/bash
+
+
+#cd /home/vahid/AptanaStudioWorkspace/chakameh/scripts
+backup_dir="../backups/`date`"
+echo $backup_dir
+mkdir -p "$backup_dir"
+mv ../data/db.sqlite "$backup_dir"
+mv ../docs/artists.csv "$backup_dir" &&\
+  
+./csvtotsv.py < ../docs/table.csv > ../docs/table.tsv && \
+./tsvimport.py < ../docs/table.tsv && \
+./findfilenames.py && \
+./extract_artists

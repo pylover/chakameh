@@ -11,6 +11,7 @@ from chakameh.models.artable import Artable
 class Artist(Entity,Artable):
     title = Field(Unicode(500),unique=True,nullable=False,index=True)
     tracks = OneToMany('Track')
+    tags = Field(Unicode(500),nullable=True)
 
     @classmethod
     def ensure(cls,title):
@@ -22,10 +23,6 @@ class Artist(Entity,Artable):
             session.commit()
         return artist
 
-    # Artable methods
-    def get_tags(self):
-        return []
-    
     def get_arts_directory(self):
         return 'Artists'
     

@@ -5,11 +5,16 @@ Created on:    Jan 21, 2014
 '''
 
 from elixir import Entity,Field,Unicode,OneToMany,session
+from chakameh.models.artable import Artable
 
-class Genere(Entity):
+class Genere(Entity,Artable):
     title = Field(Unicode(500),unique=True,nullable=False,index=True)
     tracks = OneToMany('Track')
-    
+    tags = Field(Unicode(500),nullable=True)
+
+    def get_arts_directory(self):
+        return 'Artists'
+        
     @classmethod
     def ensure(cls,title):
         if not title or title.strip()=='':
