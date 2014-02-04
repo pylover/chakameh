@@ -5,6 +5,7 @@ install_hooks(globals())
 
 a = Analysis(['../source/chakameh.py'],
              hiddenimports=[],
+			 hookspath='../pyinstaller/hooks',
              runtime_hooks=None)
 pyz = PYZ(a.pure)
 exe = EXE(pyz,
