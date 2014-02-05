@@ -6,10 +6,11 @@ Created on:    Jan 27, 2014
 
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.clock import Clock
 from chakameh.models import ApplicationInfo,session
 from datetime import datetime
 import os.path
-#import cProfile
+import cProfile
 
 class ChakamehApp(App):
     def __init__(self):
@@ -78,8 +79,8 @@ class ChakamehApp(App):
         print player.source
     
     def on_start(self):
-#         self.profile = cProfile.Profile()
-#         self.profile.enable()
+        self.profile = cProfile.Profile()
+        self.profile.enable()
         self.tracks_adapter.bind(on_selection_change=self.on_track_selection)
         self.get_widget('player').bind(on_track_end=self.on_track_end,
                                        on_track_start=self.on_track_start)
@@ -90,8 +91,8 @@ class ChakamehApp(App):
         self.get_widget('search').bind(text=self.on_search)
         
 
-#     def on_stop(self):
-#         self.profile.disable()
-#         self.profile.dump_stats('myapp.profile')        
+    def on_stop(self):
+        self.profile.disable()
+        self.profile.dump_stats('myapp.profile')
         
         

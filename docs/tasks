@@ -1,4 +1,3 @@
-performance
 lock
 soring
 backdoor-trojan
@@ -16,6 +15,7 @@ volume
 kivy.factory
 next previous
 feedback -> on track not found
++performance
 +windows package
 +play next track
 +Windows sound

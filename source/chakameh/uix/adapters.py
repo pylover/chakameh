@@ -4,6 +4,7 @@ Created on:    Jan 23, 2014
 @author:        vahid
 '''
 from kivy.adapters.listadapter import ListAdapter
+from kivy.clock import Clock
 from chakameh.models import Composer,Lyricist,Artist,Genere,Track 
 
 
@@ -77,16 +78,23 @@ class TrackAdapter(BaseAdapter):
     def clear_filters(self):
         self.filters = {}
     
+    def _update_data(self):
+        def _upd(dt):
+            self.data = self.fetch_data()
+        Clock.schedule_once(_upd, .8)
+    
     def filter(self,model):
         self.clear_filters()
         if model:
             self.filters[model.__class__.__name__] = model
-        self.data = self.fetch_data()
+        self._update_data()
+        #self.data = self.fetch_data()
             
     def search(self,value):
         self.clear_filters()
         self.filters['Search'] = value.decode('utf8')
-        self.data = self.fetch_data()
+        self._update_data()
+        #self.data = self.fetch_data()
     
     def get_header(self):
         return [Track(title=u'عنوان',
