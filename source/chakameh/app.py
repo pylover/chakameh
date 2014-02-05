@@ -6,6 +6,8 @@ Created on:    Jan 27, 2014
 
 from kivy.app import App
 from kivy.lang import Builder
+from chakameh.models import ApplicationInfo,session
+from datetime import datetime
 import os.path
 #import cProfile
 
@@ -13,6 +15,8 @@ class ChakamehApp(App):
     def __init__(self):
         App.__init__(self)
         self.appdir = os.path.abspath(os.path.dirname(__file__))
+        ApplicationInfo.single().last_run = datetime.now()
+        session.commit()
         
         self.kv_files = [os.path.join(self.appdir,'views',f) for f in ['global.kv',
                                                                        'player.kv',

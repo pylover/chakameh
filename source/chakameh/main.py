@@ -14,7 +14,7 @@ def start(config_filename=None):
     
     if config_filename:
         config.load_files(config_filename)
-    print config.media_root
+
     app = ChakamehApp()        
     app.run()
     

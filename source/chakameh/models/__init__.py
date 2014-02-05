@@ -12,6 +12,7 @@ from .lyricist import Lyricist
 from .genere import Genere
 from .composer import Composer
 from .category import Category
+from .appinfo import ApplicationInfo
 
 thisdir = os.path.dirname(__file__)
 metadata.bind = "sqlite:///%s" % os.path.abspath(os.path.join( thisdir, "../../.." ,"data/db.sqlite"))
