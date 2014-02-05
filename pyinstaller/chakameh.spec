@@ -1,12 +1,12 @@
 # -*- mode: python -*-
 
 from kivy.tools.packaging.pyinstaller_hooks import install_hooks
-install_hooks(globals(),hookspath=['D:\\Kivy-w32\\chakameh\\pyinstaller\\hooks'])
+install_hooks(globals()) #,hookspath=['D:\\Kivy-w32\\chakameh\\pyinstaller\\hooks'])
 
 hiddenimports = []
 #from PyInstaller.hooks.hookutils import collect_submodules
 #hiddenimports += collect_submodules('sqlalchemy')
-hiddenimports += ['elixir','sqlalchemy']
+#hiddenimports += ['elixir','sqlalchemy']
 #hiddenimports += ['contextlib']
 #hiddenimports += ['decimal','numbers','datetime']
 
