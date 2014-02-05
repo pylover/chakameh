@@ -7,10 +7,10 @@ Created on Jan 16, 2014
 
 import os
 from chakameh.config import config
+from chakameh.app import ChakamehApp
 
 thisdir = os.path.dirname(__file__)
 def start(config_filename=None):
-    from chakameh.app import ChakamehApp
     
     if config_filename:
         config.load_files(config_filename)

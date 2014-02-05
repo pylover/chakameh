@@ -7,7 +7,7 @@ Created on:    Jan 27, 2014
 from kivy.app import App
 from kivy.lang import Builder
 import os.path
-import cProfile
+#import cProfile
 
 class ChakamehApp(App):
     def __init__(self):
@@ -41,6 +41,9 @@ class ChakamehApp(App):
             model = selected.model
         else:
             model = selected.parent.model
+            
+        if not model.filename:
+            return 
             
         #player.source = "D:\\Kivy-w32\\test.mp3" #model.filename
         if player.source == model.filename:
