@@ -5,8 +5,7 @@ Created on:    Jan 24, 2014
 '''
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
-from kivy.uix.selectableview import SelectableView
-from kivy.uix.listview import ListView
+from kivy.uix.listview import ListView,SelectableView
 from chakameh.uix.adapters import TrackAdapter
 
 class Playlist(ListView):
