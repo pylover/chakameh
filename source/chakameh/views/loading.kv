@@ -1,0 +1,32 @@
+
+
+<Loading>:
+  size_hint: None, None
+  size: app.root.size
+  # anchor_x: 'center'
+  # anchor_y: 'center'
+  # canvas:
+    # Color:
+      # rgba: .1,.1,.1,.7
+    # Rectangle:
+      # pos: self.pos
+      # size: self.size
+  pos_hint: {'x': 0, 'y': 0}
+  canvas:
+    Color:
+      rgba: 0, 0, 0, .8
+    Rectangle:
+      pos: self.pos
+      size: self.size
+  Label:
+    pos_hint: {'x': .2, 'y': .6}
+    size_hint: .6, .2
+    text: 'بارگذاری'
+  FloatLayout:
+    pos_hint: {'x': .2, 'y': .4}
+    size_hint: .6, .2
+    ProgressBar:
+      id: pb
+      pos_hint: {'x': 0, 'center_y': .5}
+      max: 100
+      value: 20

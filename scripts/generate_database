@@ -2,12 +2,13 @@
 
 
 #cd /home/vahid/AptanaStudioWorkspace/chakameh/scripts
-backup_dir="../backups/`date`"
+backup_dir="../backups/`date +%Y-%m-%d_%H-%M-%S-%N`"
 echo $backup_dir
 mkdir -p "$backup_dir"
 mv ../data/db.sqlite "$backup_dir"
-mv ../docs/artists.csv "$backup_dir" &&\
-  
+mv ../docs/artists.csv "$backup_dir"
+
+./fix_arabic_chars.py < ../docs/table-bad.csv > ../docs/table.csv && \
 ./csvtotsv.py < ../docs/table.csv > ../docs/table.tsv && \
 ./tsvimport.py < ../docs/table.tsv && \
 ./findfilenames.py && \

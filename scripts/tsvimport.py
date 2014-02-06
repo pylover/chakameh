@@ -7,8 +7,8 @@ from chakameh.models import Artist,Composer,Genere,Lyricist,Track,Category
 import re   
 
 def read():
-    #reader = sys.stdin
-    reader = open('../docs/table.tsv')
+    reader = sys.stdin
+    #reader = open('../docs/table.tsv')
     l = 0
     try:
         for line in reader.readlines():

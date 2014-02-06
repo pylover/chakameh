@@ -1,0 +1,8 @@
+#! /bin/bash
+
+sqlite3 ../data/db.sqlite <<!
+.headers on
+.mode csv
+.output ../docs/lyricists.csv
+select title from lyricist order by title;
+!

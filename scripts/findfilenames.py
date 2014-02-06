@@ -71,7 +71,7 @@ def scan():
 _media_dirs= {}
 def get_media_dir(no):
     global _media_dirs
-    root = os.path.abspath("/media/vahid/data/Javdaneha")
+    root = os.path.abspath("/media/vahid/data/javdaneha-base")
     
     if len(_media_dirs) <= 0:
         for f in os.listdir(root):

@@ -48,11 +48,16 @@ Widget:
             halign: 'left'
         Playlist:
           id: playlist
-          size_hint: 1, .82         
+          size_hint: 1, .82
         MediaArt:
           size_hint: 1, .14
-          on_expand: playlist.size_hint_y = .14; self.size_hint_y = .82
-          on_collapse: playlist.size_hint_y = .82; self.size_hint_y = .14
+          min_size: 50
+          max_size: root.height * .80
+          sizable_from: 'top'     
+          # on_expand: playlist.size_hint_y = .14; self.size_hint_y = .82
+          # on_collapse: playlist.size_hint_y = .82; self.size_hint_y = .14
+          Button:
+        
             
       #Right Pane
       BoxLayout:

@@ -6,11 +6,7 @@ Created on Jan 16, 2014
 '''
 
 from chakameh.main import start
-import os.path
-
-thisdir = os.path.dirname(__file__)
-
 
 if __name__ == '__main__':
-    start(config_filename=os.path.join(thisdir,'development.conf'))
+    start()
     

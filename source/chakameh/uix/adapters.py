@@ -48,6 +48,7 @@ class TrackAdapter(BaseAdapter):
         
     def __init__(self,*args,**kw):
         self.filters = {}
+        self._temp_data = []
         super(TrackAdapter,self).__init__(*args,**kw)
         
     def fetch_data(self,**kwargs):
@@ -81,7 +82,7 @@ class TrackAdapter(BaseAdapter):
     def _update_data(self):
         def _upd(dt):
             self.data = self.fetch_data()
-        Clock.schedule_once(_upd, .8)
+        Clock.schedule_once(_upd, .1)
     
     def filter(self,model):
         self.clear_filters()

@@ -1,20 +1,24 @@
+
+UI:
+	Media Arts
+	soring
+	Loading
+	font
+	show playback times times
+	volume
+
 lock
-soring
 backdoor-trojan
-Media Arts
 resample_files again
-Loading
 encode files
-font
-time
-multi-singers
+fbo
 track names
-replace ي with ی
 remove all vahid's, too important
-volume
+multi-singers
 kivy.factory
 next previous
 feedback -> on track not found
++replace ي with ی
 +performance
 +windows package
 +play next track

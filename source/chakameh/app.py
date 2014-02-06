@@ -6,13 +6,13 @@ Created on:    Jan 27, 2014
 
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.clock import Clock
 from chakameh.models import ApplicationInfo,session
 from datetime import datetime
 import os.path
 import cProfile
 
 class ChakamehApp(App):
+    
     def __init__(self):
         App.__init__(self)
         self.appdir = os.path.abspath(os.path.dirname(__file__))
@@ -23,7 +23,8 @@ class ChakamehApp(App):
                                                                        'player.kv',
                                                                        'rightpane.kv',
                                                                        'playlist.kv',
-                                                                       'mediaart.kv']]
+                                                                       'mediaart.kv',
+                                                                       'loading.kv']]
         self.root_kv_file = os.path.join(self.appdir,'views','root.kv')
 
     def get_widget(self,id):
@@ -89,7 +90,6 @@ class ChakamehApp(App):
         self.get_widget('composers').adapter.bind(on_selection_change=self.on_filter)
         self.get_widget('generes').adapter.bind(on_selection_change=self.on_filter)
         self.get_widget('search').bind(text=self.on_search)
-        
 
     def on_stop(self):
         self.profile.disable()
