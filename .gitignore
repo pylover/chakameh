@@ -47,3 +47,4 @@ data
 source/chakameh/gui/test.mp3
 *.profile
 backups
+*~
