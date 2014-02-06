@@ -48,12 +48,13 @@ class TrackAdapter(BaseAdapter):
         
     def __init__(self,*args,**kw):
         self.filters = {}
+        self.sorts = []
         self._temp_data = []
         super(TrackAdapter,self).__init__(*args,**kw)
         
     def fetch_data(self,**kwargs):
         
-        q = Track.query.order_by(Track.title)
+        q = Track.query
 
         for key, model in self.filters.items():
             if key == 'Search':
@@ -74,6 +75,9 @@ class TrackAdapter(BaseAdapter):
         if 'limit' in kwargs:
             q = q.limit(kwargs['limit'])
             
+        if self.sorts and len(self.sorts[0]):
+            q = q.order_by(' '.join(self.sorts[0]))
+            
         return q.all()
         
     def clear_filters(self):
@@ -83,6 +87,10 @@ class TrackAdapter(BaseAdapter):
         def _upd(dt):
             self.data = self.fetch_data()
         Clock.schedule_once(_upd, .1)
+    
+    def sort(self,column,sort_status):
+        self.sorts = [(column,sort_status)] if sort_status != 'none' else []
+        self._update_data()
     
     def filter(self,model):
         self.clear_filters()

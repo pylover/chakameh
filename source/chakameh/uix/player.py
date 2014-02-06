@@ -11,6 +11,7 @@ from chakameh.audio import Sound
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from chakameh.config import config
+from datetime import timedelta,datetime
 
 class States(object):
     DEACTIVATED = 0
@@ -43,6 +44,9 @@ class AudioPlayer(BoxLayout):
     source = StringProperty(None)
     sound = ObjectProperty(None)
     position = NumericProperty(0)
+    total_time = StringProperty(0)
+    current_time = StringProperty(0)
+    
     def __init__(self, **kwargs):
         self.bind(player_state=self.on_player_state,
                   size=self.on_resize,
@@ -62,12 +66,20 @@ class AudioPlayer(BoxLayout):
             self.player_state = States.STOPPED
             self.stop()
             self.sound = Sound(filename)
+            if not self.sound:
+                pass#TODO: 
             self.play_pause()
         else:
             self.player_state = States.DEACTIVATED
     
     def on_player_state(self,sender,new_state):
         pass
+    
+    def get_readable_time(self,total_seconds):
+        minutes = total_seconds / 60.0
+        seconds = total_seconds % 60.0
+        return '%.2d:%.2d' % (minutes, seconds) 
+        
     
     def set_position(self,value):
         if not self.sound:
@@ -78,6 +90,8 @@ class AudioPlayer(BoxLayout):
     
     def update_position(self,e):
         if self.sound.length > 0:
+            self.total_time = self.get_readable_time(self.sound.length)
+            self.current_time = self.get_readable_time(self.sound.position)
             self.position = self.sound.position * 100.0 / self.sound.length
             if abs(self.sound.position - self.sound.length) < 100:
                 self.dispatch('on_track_end')
@@ -99,7 +113,7 @@ class AudioPlayer(BoxLayout):
         elif self.player_state == States.STOPPED:
             self.dispatch('on_track_start')
             self.sound.play()
-            Clock.schedule_interval(self.update_position,.2)
+            Clock.schedule_interval(self.update_position,.3)
             self.player_state = States.PLAYING
 
     def on_track_end(self,*args,**kw):

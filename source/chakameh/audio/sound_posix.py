@@ -27,17 +27,17 @@ class Sound(object):
     @property
     def length(self):
         if self.sound:
-            return self.sound.get_length() * 1000
+            return self.sound.get_length()
         return 0
     
     def _get_position(self):
         if self.sound:
-            return self.sound.get_pos() * 1000
+            return self.sound.get_pos()
         return 0
 
     def _set_position(self,value):
         if self.sound:
-            self.sound.seek(value / 1000.0)
+            self.sound.seek(value)
 
     position = property(_get_position,_set_position)
 

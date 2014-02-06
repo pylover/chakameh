@@ -1,5 +1,66 @@
 #:import PlaylistRow chakameh.uix.playlist.PlaylistRow
 
+<Playlist>:
+  container: container
+  header: header
+  BoxLayout:
+    orientation: 'vertical'
+    pos: root.pos
+    BoxLayout:
+      id: header
+      orientation: 'horizontal'
+      size_hint: 1, None
+      height: 32
+      ColumnHeaderCell:
+        column: 'genere'
+        size_hint: .12, 1
+        text: 'دستگاه'
+        halign: 'right'
+#        on_sort_status: root.adapter.sort(self.column, self.sort_status)
+          
+      ColumnHeaderCell:
+        column: 'lyricist'
+        size_hint: .12, 1
+        text: 'شاعر'
+        halign: 'right'
+#        on_sort_status: root.adapter.sort(self.column, self.sort_status)
+        
+      ColumnHeaderCell:
+        column: 'composer'
+        size_hint: .12, 1
+        text: 'آهنگساز'
+        halign: 'right'
+#        on_sort_status: root.adapter.sort(self.column, self.sort_status)
+        
+      ColumnHeaderCell:
+        column: 'artist'
+        size_hint: .12, 1
+        text: 'خواننده'
+        halign: 'right'
+#        on_sort_status: root.adapter.sort(self.column, self.sort_status)
+        
+      ColumnHeaderCell:
+        column: 'title'
+        size_hint: .43, 1
+        text: 'عنوان'
+        halign: 'right'
+        on_sort_status: root.adapter.sort(self.column, self.sort_status)
+        
+      ColumnHeaderCell:
+        column: 'code'
+        size_hint: .07, 1
+        text: 'کد'
+        halign: 'left'
+        on_sort_status: root.adapter.sort(self.column, self.sort_status)
+                
+    ScrollView:
+      on_scroll_y: root._scroll(args[1])
+      do_scroll_x: False
+      GridLayout:
+        cols: 1
+        id: container
+        size_hint_y: None
+
 [DetailedListItem@PlaylistRow]:
   size_hint_y: None
   height: 32

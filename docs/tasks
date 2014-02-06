@@ -1,11 +1,10 @@
 
 UI:
 	Media Arts
-	soring
 	Loading
 	font
-	show playback times times
 	volume
+	next_track
 
 lock
 backdoor-trojan
@@ -17,7 +16,9 @@ remove all vahid's, too important
 multi-singers
 kivy.factory
 next previous
++show playback times times
 feedback -> on track not found
++soring
 +replace ي with ی
 +performance
 +windows package
@@ -29,3 +30,15 @@ feedback -> on track not found
 +(resample files to mp3)
 +search by code, prime
 +itunes
+
+
+
+
+write 		3
+lock		2
+test		5
+print		4
+cover-put	2
+cover-paper	3
+---------------
+			19

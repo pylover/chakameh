@@ -2,19 +2,24 @@
 #:import PlayButton chakameh.uix.player.PlayButton
 #:import States chakameh.uix.player.States
 
-<AudioPlayer>:
+<AudioPlayer>: 
   orientation: 'horizontal'
-  spacing: 4 
   PlayButton:
-    size_hint_x: None
+    size_hint: None, 1
     player: root
     width: 44
     source: 
       'atlas://data/images/defaulttheme/media-playback-pause' if root.player_state == States.PLAYING \
       else 'atlas://data/images/defaulttheme/media-playback-start'
+  Label:
+    halign: 'left'
+    size_hint: None, 1
+    width: 90
+    text: '%s/%s' % (root.current_time,root.total_time)
   Slider:
-    size_hint: .8, 1
-    pos_hint_right: 0
+    size_hint: None, 1    
+    width: root.width - 134
+    id: playerSlider
     value: root.position
     on_value: root.set_position(self.value)
 

@@ -9,12 +9,6 @@ from kivy.uix.floatlayout import FloatLayout
 
 class Loading(FloatLayout):
 
-    def cancel(self, *largs):
-        '''Cancel any action from the FileChooserController.
-        '''
-        if self.parent:
-            self.parent.cancel()
-
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
             super(Loading, self).on_touch_down(touch)
