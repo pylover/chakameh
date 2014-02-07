@@ -2,7 +2,8 @@
 [SimpleListItem@SelectableView+BoxLayout]:
   size_hint_y: None
   height: 32
-  model: ctx.model
+  entity_name: ctx.entity_name
+  objid:  ctx.objid
   ListItemButton:
-    text: ctx.model.title
+    text: ctx.title
     is_selected: False

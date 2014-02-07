@@ -43,21 +43,22 @@ class ChakamehApp(App):
             return
         selected = adapter.selection[0]
         
-        if hasattr(selected,'model'):
-            model = selected.model
-        else:
-            model = selected.parent.model
-            
-        if not model.filename:
+#         if hasattr(selected,'model'):
+#             model = selected.model
+#         else:
+#             model = selected.parent.model
+#             
+        if not selected.parent or not selected.parent.filename:
             return 
             
+        filename = selected.parent.filename
         #player.source = "D:\\Kivy-w32\\test.mp3" #model.filename
-        if player.source == model.filename:
-            player.source = model.filename
+        if player.source == filename:
+            player.source = filename
             prop = player.property('source') 
             prop.dispatch(player.__self__)
         else:
-            player.source = model.filename
+            player.source = filename
     
     @property
     def tracks_adapter(self):
@@ -65,7 +66,8 @@ class ChakamehApp(App):
     
     def on_filter(self,adapter):
         if len(adapter.selection):
-            self.tracks_adapter.filter(adapter.selection[0].parent.model)
+            s = adapter.selection[0].parent
+            self.tracks_adapter.filter(s.entity_name,s.objid)
         else:
             self.tracks_adapter.filter(None)
     

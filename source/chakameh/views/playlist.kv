@@ -1,5 +1,5 @@
 #:import PlaylistRow chakameh.uix.playlist.PlaylistRow
-
+#:import FboGridLayout chakameh.uix.layouts.FboGridLayout
 <Playlist>:
   container: container
   header: header
@@ -65,34 +65,35 @@
   size_hint_y: None
   height: 32
   orientation: 'horizontal'
-  model: ctx.model
+  objid: ctx.id
+  filename: ctx.filename
   row_index: ctx.index
-  ListItemButton:
+  ListItemLabel:
     size_hint: .12, 1
-    text: '' if not ctx.model.genere else ctx.model.genere.title
+    text: ctx.genere
     halign: 'right'
     font_size: 10
-  ListItemButton:
+  ListItemLabel:
     size_hint: .12, 1
-    text: '' if not ctx.model.lyricist else ctx.model.lyricist.title
+    text: ctx.lyricist
     halign: 'right'
     font_size: 10
-  ListItemButton:
+  ListItemLabel:
     size_hint: .12, 1
-    text: '' if not ctx.model.composer else ctx.model.composer.title
+    text: ctx.composer
     halign: 'right'
     font_size: 10
-  ListItemButton:
+  ListItemLabel:
     size_hint: .12, 1
-    text: '' if not ctx.model.artist else ctx.model.artist.title
+    text: ctx.artist
     halign: 'right'
     font_size: 10
   ListItemButton:
     size_hint: .43, 1
-    text: ctx.model.title
+    text: ctx.title
     halign: 'right'
   ListItemButton:
     size_hint: .07, 1
-    text: ctx.model.code
+    text: ctx.code
     halign: 'left'
     

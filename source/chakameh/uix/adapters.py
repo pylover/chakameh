@@ -16,7 +16,10 @@ class BaseAdapter(ListAdapter):
         else:
             self.data = kwargs['data'] 
         if  'args_converter' not in kwargs:
-            kwargs['args_converter'] = lambda i,obj: {'index':i,'model':obj}
+            kwargs['args_converter'] = lambda i,obj: {'index':i,
+                                                      'title': obj.title,
+                                                      'entity_name': obj.__class__.__name__.lower(),
+                                                      'objid': obj.id} #,'model':obj}
         if  'template' not in kwargs:
             kwargs['template'] = 'SimpleListItem'
         super(BaseAdapter,self).__init__(**kwargs)
@@ -50,27 +53,39 @@ class TrackAdapter(BaseAdapter):
         self.filters = {}
         self.sorts = []
         self._temp_data = []
+        if  'args_converter' not in kw:
+            kw['args_converter'] = lambda i,obj: {'index':i,
+                                                  'title': obj.title,
+                                                   'id': obj.id,
+                                                   'code': obj.code,
+                                                   'entity_name': obj.__class__.__name__.lower(),
+                                                   'genere': '' if not obj.genere else obj.genere.title,
+                                                   'artist': '' if not obj.artist else obj.artist.title, 
+                                                   'composer': '' if not obj.composer else obj.composer.title,
+                                                   'lyricist': '' if not obj.lyricist else obj.lyricist.title,
+                                                   'filename': '' if not obj.filename else obj.filename,
+        }
         super(TrackAdapter,self).__init__(*args,**kw)
         
     def fetch_data(self,**kwargs):
         
         q = Track.query
 
-        for key, model in self.filters.items():
+        for key, objid in self.filters.items():
             if key == 'Search':
-                if model and len(model.strip()):
-                    if model[0].isdigit():
-                        q = q.filter(Track.code.contains(model))
+                if objid and len(objid.strip()):
+                    if objid[0].isdigit():
+                        q = q.filter(Track.code.contains(objid))
                     else:
-                        q = q.filter(Track.prime.contains(model))
-            elif isinstance(model,Artist):
-                q = q.filter(Track.artist == model)
-            elif isinstance(model,Composer):
-                q = q.filter(Track.composer == model)
-            elif isinstance(model,Lyricist):
-                q = q.filter(Track.lyricist == model)
-            elif isinstance(model,Genere):
-                q = q.filter(Track.genere == model)
+                        q = q.filter(Track.prime.contains(objid))
+            elif key == 'artist':
+                q = q.filter(Track.artist_id == objid)
+            elif key == 'composer':
+                q = q.filter(Track.composer_id == objid)
+            elif key == 'lyricist':
+                q = q.filter(Track.lyricist_id == objid)
+            elif key == 'genere':
+                q = q.filter(Track.genere_id == objid)
                 
         if 'limit' in kwargs:
             q = q.limit(kwargs['limit'])
@@ -78,7 +93,7 @@ class TrackAdapter(BaseAdapter):
         if self.sorts and len(self.sorts[0]):
             q = q.order_by(' '.join(self.sorts[0]))
             
-        return q.all()
+        return q
         
     def clear_filters(self):
         self.filters = {}
@@ -92,10 +107,10 @@ class TrackAdapter(BaseAdapter):
         self.sorts = [(column,sort_status)] if sort_status != 'none' else []
         self._update_data()
     
-    def filter(self,model):
+    def filter(self,model,id=None):
         self.clear_filters()
         if model:
-            self.filters[model.__class__.__name__] = model
+            self.filters[model] = id
         self._update_data()
         #self.data = self.fetch_data()
             
@@ -109,6 +124,10 @@ class TrackAdapter(BaseAdapter):
         return [Track(title=u'عنوان',
                      composer=Composer(title=u'آهنگساز'))]
         
+    def get_count(self):
+        res = super(TrackAdapter,self).get_count()
+        return res
+        
     def select_next_track(self):
         if len(self.selection):
             selected = self.selection[0].parent
@@ -120,3 +139,12 @@ class TrackAdapter(BaseAdapter):
                 self.deselect_item_view(self.selection[0])
                 self.select_list([next.children[1]],extend=False)
                 
+
+#     __populated = False
+#     def get_view(self,index):
+#         if not self.__populated:
+#             print self.get_count()
+#             for i in xrange(self.get_count()):
+#                 super(TrackAdapter,self).get_view(i)
+# 
+#         return super(TrackAdapter,self).get_view(index)
