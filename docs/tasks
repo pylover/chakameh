@@ -2,9 +2,9 @@
 UI:
 	Media Arts
 	Loading
-	next_track
 	font
-
+	StatusBar
+	next_track
 lock
 backdoor-trojan
 resample_files again
@@ -19,7 +19,7 @@ next previous
 +volume
 +show playback times times
 feedback -> on track not found
-+soring
++sorting
 +replace ي with ی
 +performance
 +windows package

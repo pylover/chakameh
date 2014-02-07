@@ -52,10 +52,10 @@ class Playlist(ListView):
 #         self._show_progress()
 #         Clock.schedule_once(lambda dt: self._hide_progress(),4)    
     
-    def populate(self,*args):
-        ctime = datetime.now()
-        super(Playlist,self).populate(*args)
-        print "loaded in: %s seconds" % (datetime.now() - ctime).total_seconds()
+#     def populate(self,*args):
+#         ctime = datetime.now()
+#         super(Playlist,self).populate(*args)
+#         print "loaded in: %s seconds" % (datetime.now() - ctime).total_seconds()
     
 class PlaylistRow(SelectableView,BoxLayout):
     model = ObjectProperty(None)
