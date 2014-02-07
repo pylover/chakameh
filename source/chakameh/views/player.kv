@@ -11,6 +11,7 @@
     source: 
       'atlas://data/images/defaulttheme/media-playback-pause' if root.player_state == States.PLAYING \
       else 'atlas://data/images/defaulttheme/media-playback-start'
+#  VolumeButton: 
   Label:
     halign: 'left'
     size_hint: None, 1
@@ -18,10 +19,26 @@
     text: '%s/%s' % (root.current_time,root.total_time)
   Slider:
     size_hint: None, 1    
-    width: root.width - 134
+    width: root.width - 294
     id: playerSlider
     value: root.position
     on_value: root.set_position(self.value)
+  Image:
+    size_hint: None, 1
+    width: 40
+    source: 
+      'atlas://data/images/defaulttheme/audio-volume-high' if root.volume > 70 else \
+      'atlas://data/images/defaulttheme/audio-volume-medium' if root.volume > 30 else \
+      'atlas://data/images/defaulttheme/audio-volume-low' if root.volume > 0 else \
+      'atlas://data/images/defaulttheme/audio-volume-muted'
+      
+      
+  Slider:
+    size_hint: None, 1    
+    width: 120
+    value: root.volume
+    on_value: root.set_volume(self.value/100.0)
+    max: 100
 
 <PlayButton>:
   text: ""

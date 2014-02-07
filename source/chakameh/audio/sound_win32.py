@@ -54,6 +54,17 @@ class Sound(object):
         """Sets the volume between 0 and 100."""
         self._mci.directsend('setaudio %s volume to %d' %
                 (self._alias, level * 10) )
+        
+    def _get_volume(self):
+        if self.sound:
+            return self.sound.volume
+        return 0
+ 
+    def _set_volume(self,value):
+        if self.sound:
+            self.sound.volume = value
+ 
+    volume = property(_get_volume,_set_volume)
 
     def play(self, start_ms=None, end_ms=None):
         start_ms = 0 if not start_ms else start_ms

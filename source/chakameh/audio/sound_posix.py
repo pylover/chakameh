@@ -41,3 +41,15 @@ class Sound(object):
 
     position = property(_get_position,_set_position)
 
+    def _get_volume(self):
+        if self.sound:
+            return self.sound.volume * 100
+        return 0
+
+    def _set_volume(self,value):
+        if self.sound:
+            self.sound.volume = value
+
+    
+    volume = property(_get_volume,_set_volume)
+

@@ -2,9 +2,8 @@
 UI:
 	Media Arts
 	Loading
-	font
-	volume
 	next_track
+	font
 
 lock
 backdoor-trojan
@@ -16,6 +15,8 @@ remove all vahid's, too important
 multi-singers
 kivy.factory
 next previous
+
++volume
 +show playback times times
 feedback -> on track not found
 +soring

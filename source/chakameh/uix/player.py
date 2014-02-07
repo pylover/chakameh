@@ -11,7 +11,6 @@ from chakameh.audio import Sound
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from chakameh.config import config
-from datetime import timedelta,datetime
 
 class States(object):
     DEACTIVATED = 0
@@ -46,6 +45,7 @@ class AudioPlayer(BoxLayout):
     position = NumericProperty(0)
     total_time = StringProperty(0)
     current_time = StringProperty(0)
+    volume = NumericProperty(0)
     
     def __init__(self, **kwargs):
         self.bind(player_state=self.on_player_state,
@@ -67,7 +67,7 @@ class AudioPlayer(BoxLayout):
             self.stop()
             self.sound = Sound(filename)
             if not self.sound:
-                pass#TODO: 
+                pass#TODO: raise exception or not for fail safe app development
             self.play_pause()
         else:
             self.player_state = States.DEACTIVATED
@@ -86,13 +86,18 @@ class AudioPlayer(BoxLayout):
             return
         if abs( self.position - value)>1:
             self.sound.position = value * self.sound.length / 100.0
-    
+
+    def set_volume(self,value):
+        if not self.sound:
+            return
+        self.sound.volume = value
     
     def update_position(self,e):
         if self.sound.length > 0:
             self.total_time = self.get_readable_time(self.sound.length)
             self.current_time = self.get_readable_time(self.sound.position)
             self.position = self.sound.position * 100.0 / self.sound.length
+            self.volume = self.sound.volume
             if abs(self.sound.position - self.sound.length) < 100:
                 self.dispatch('on_track_end')
         
