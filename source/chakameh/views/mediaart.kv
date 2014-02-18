@@ -1,4 +1,6 @@
 #:import MediaArt chakameh.uix.media_art.MediaArt
-
-#<MediaArt>:
-#  sizable_from: 'top'
+#:import config chakameh.config.config
+<MediaArt>:
+  Image:
+    source: app.join_root(config.arts.noimage) 
+    size: root.size

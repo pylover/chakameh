@@ -13,8 +13,11 @@ config = ConfigManager(
     init_value={
         'data_uri': 'sqlite:///../data/db.sqlite',
         'media_root':       '/media/vahid/data/Javdaneha',
-        'media_arts_root':  '/media/vahid/data/Javdaneha-Arts',
-        'media_arts_extensions':    ['png']
+        'arts':{
+            'noimage': 'stuff/images/noimage.png',
+            'directory': '/media/vahid/data/Javdaneha-Arts',
+            'extensions': ['png','jpg']
+        }
     },
     files=config_filename
 )

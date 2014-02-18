@@ -27,6 +27,9 @@ class ChakamehApp(App):
                                                                        'loading.kv']]
         self.root_kv_file = os.path.join(self.appdir,'views','root.kv')
 
+    def join_root(self,p):
+        return os.path.join(self.appdir,'..',p)
+
     def get_widget(self,id):
         return self.root.ids[id]
 
