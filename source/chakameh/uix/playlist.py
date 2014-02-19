@@ -10,8 +10,6 @@ from kivy.uix.button import Button
 from chakameh.uix.adapters import TrackAdapter
 from chakameh.uix.loading import Loading
 
-from datetime import datetime
-
 class ColumnHeaderCell(Button):
     column = StringProperty()
     sort_status = OptionProperty('none',options=['none','asc','desc'])

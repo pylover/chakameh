@@ -46,16 +46,10 @@ class ChakamehApp(App):
             return
         selected = adapter.selection[0]
         
-#         if hasattr(selected,'model'):
-#             model = selected.model
-#         else:
-#             model = selected.parent.model
-#             
         if not selected.parent or not selected.parent.filename:
             return 
             
         filename = selected.parent.filename
-        #player.source = "D:\\Kivy-w32\\test.mp3" #model.filename
         if player.source == filename:
             player.source = filename
             prop = player.property('source') 

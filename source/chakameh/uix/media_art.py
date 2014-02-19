@@ -9,7 +9,6 @@ from kivy.properties import OptionProperty
 from kivy.uix.carousel import Carousel
 from kivy.uix.accordion import AccordionItem
 from kivy.factory import Factory
-from kivy.logger import Logger
 
 class ArtBox(AccordionItem):
     category = OptionProperty('none',options=['none','artist','composer','lyricist'])

@@ -5,8 +5,10 @@ Created on:    Feb 7, 2014
 '''
 
 from kivy.uix.gridlayout import GridLayout
+
 # needed to create Fbo, must be resolved in future kivy version
 from kivy.core.window import Window
+Window = Window
 
 from kivy.graphics import Color, Rectangle, Canvas
 from kivy.graphics.fbo import Fbo
