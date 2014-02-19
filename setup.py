@@ -41,7 +41,7 @@ setup(
     ],
     entry_points={
         'console_scripts':[
-            'chakameh.findfiles = chakameh.tools.findfiles:main',
+            'chakameh.find_files = chakameh.tools.find_files:main',
             'chakameh.import_tracks = chakameh.tools.import_tracks:main']},
     classifiers=[
         "Development Status :: 3 - Alpha",
