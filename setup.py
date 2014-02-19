@@ -31,16 +31,15 @@ setup(
     maintainer="Vahid Mardani",
     maintainer_email="vahid.mardani@gmail.com",
     packages=["chakameh"],
-    package_dir={'chakameh': 'chakameh'},
-    #package_data={'pymlconf': ['tests/conf/*','tests/files/*']},
     platforms=["any"],
-    long_description=read('../README.md'),
+    long_description=read('README.md'),
     install_requires=dependencies,
     scripts=[
         'scripts/csvtotsv',
+        'scripts/sqlitetocsv'
     ],
     entry_points={
-                  },
+        'console_scripts':[]},
     classifiers=[
         "Development Status :: 3 - Alpha",
         "License :: Freeware",
