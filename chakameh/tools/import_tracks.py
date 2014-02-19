@@ -8,10 +8,16 @@ import re
 
 parser = argparse.ArgumentParser(description='Find and store media filenames.')
 parser.add_argument('inputfile',metavar='FILENAME', nargs='?',help='Tracks tsv file.')
-parser.add_argument('-c','--config-file', metavar='CONFIGFILE',help='Chakameh config file.')
+parser.add_argument('--config-file', metavar='CONFIGFILE',help='Chakameh config file.')
 args = parser.parse_args()
 
 from chakameh.config import config
+if args.config_file:
+    config.load_files(args.config_file)
+ 
+sys.argv = sys.argv[:1]
+
+
 from chakameh.models import Artist,Composer,Genere,Lyricist,Track,Category
 
 def read():
@@ -115,10 +121,8 @@ def start():
                               unicode(dastgah)]).encode('utf8'))
     
 def main():
-    if args.config_file:
-        config.load_files(args.config_file)
     start()
     return 0
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

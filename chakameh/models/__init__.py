@@ -15,7 +15,7 @@ from .composer import Composer
 from .category import Category
 from .appinfo import ApplicationInfo
 
-thisdir = os.path.dirname(__file__)
+#thisdir = os.path.dirname(__file__)
 
 metadata.bind = config.data_uri
 metadata.bind.echo = False

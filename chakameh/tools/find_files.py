@@ -4,14 +4,20 @@ from __future__ import print_function
 import os
 import re
 import argparse
+import sys
 
 parser = argparse.ArgumentParser(description='Find and store media filenames.')
 parser.add_argument('path', metavar='PATH',help='Media directory.')
-parser.add_argument('-c','--config-file', metavar='CONFIGFILE',help='Chakameh config file.')
+parser.add_argument('--config-file', metavar='CONFIGFILE',help='Chakameh config file.')
 args = parser.parse_args()
 
-from chakameh.models import Track, session
 from chakameh.config import config
+if args.config_file:
+    config.load_files(args.config_file)
+ 
+sys.argv = sys.argv[:1]
+
+from chakameh.models import Track, session
 
 
 def scan():
@@ -80,11 +86,8 @@ def get_media_dir(no):
     return _media_dirs[no]
     
 def main():
-    
-    if args.config_file:
-        config.load_files(args.config_file)
     scan()
     return 0
     
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

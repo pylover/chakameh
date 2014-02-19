@@ -35,14 +35,15 @@ setup(
     long_description=read('README.md'),
     install_requires=dependencies,
     scripts=[
-        'scripts/csvtotsv',
-        'scripts/sqlitetocsv',
-        'scripts/purify-persian'
+        'bin/csvtotsv',
+        'bin/sqlitetocsv',
+        'bin/purify-persian',
     ],
     entry_points={
         'console_scripts':[
-            'chakameh.find_files = chakameh.tools.find_files:main',
-            'chakameh.import_tracks = chakameh.tools.import_tracks:main']},
+            "chakameh.import-tracks = chakameh.tools.import_tracks:main",
+            "chakameh.find-files = chakameh.tools.find_files:main"]
+    },
     classifiers=[
         "Development Status :: 3 - Alpha",
         "License :: Freeware",
