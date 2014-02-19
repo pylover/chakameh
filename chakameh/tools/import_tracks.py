@@ -3,12 +3,23 @@
 
 from __future__ import print_function 
 import sys
+import argparse
+import re
+
+parser = argparse.ArgumentParser(description='Find and store media filenames.')
+parser.add_argument('inputfile',metavar='FILENAME', nargs='?',help='Tracks tsv file.')
+parser.add_argument('-c','--config-file', metavar='CONFIGFILE',help='Chakameh config file.')
+args = parser.parse_args()
+
+from chakameh.config import config
 from chakameh.models import Artist,Composer,Genere,Lyricist,Track,Category
-import re   
 
 def read():
-    reader = sys.stdin
-    #reader = open('../docs/table.tsv')
+    if args.inputfile:
+        reader = open(args.inputfile)
+    else:
+        reader = sys.stdin
+        
     l = 0
     try:
         for line in reader.readlines():
@@ -17,8 +28,11 @@ def read():
             yield columns
             
     except:
-        print('LINE: %s' % l , *objs, end='\n', file=sys.stderr)
+        print('LINE: %s' % l , end='\n', file=sys.stderr)
         raise
+    finally:
+        if reader != sys.stdin:
+            reader.close()
         
 class LineTypes(object):
     UNKNOWN = 0
@@ -55,7 +69,7 @@ def parse():
                 #print(('CATEGORY:%d: %s' % (counter, l[0].encode('utf8'))))
         
         else:
-             #print(('UNKNOWN:%d :%s' % (counter, l[0].encode('utf8'))))
+            #print(('UNKNOWN:%d :%s' % (counter, l[0].encode('utf8'))))
             linetype = LineTypes.UNKNOWN
         yield linetype, l
             
@@ -100,6 +114,11 @@ def start():
                               unicode(lyricist),
                               unicode(dastgah)]).encode('utf8'))
     
-    #print(set(counts))
-if __name__ == '__main__':
+def main():
+    if args.config_file:
+        config.load_files(args.config_file)
     start()
+    return 0
+
+if __name__ == '__main__':
+    main()

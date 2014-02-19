@@ -1,13 +1,18 @@
 #! /usr/bin/env python
 
+from __future__ import print_function
 import os
 import re
+import argparse
+
+parser = argparse.ArgumentParser(description='Find and store media filenames.')
+parser.add_argument('path', metavar='PATH',help='Media directory.')
+parser.add_argument('-c','--config-file', metavar='CONFIGFILE',help='Chakameh config file.')
+args = parser.parse_args()
+
 from chakameh.models import Track, session
 from chakameh.config import config
 
-def update_tracks(dir,code):
-    pass
-    
 
 def scan():
     _proceed = 0
@@ -46,32 +51,24 @@ def scan():
                             continue
                         else:
                             code , subcode = int(m.groupdict()['code']), int(1 if not m.groupdict()['subcode'] else m.groupdict()['subcode'])
-#                             if code == 4:
-#                                 iiii = 7
                             if code == db_code and subcode == db_subcode:
                                 # Track found exactly
                                 new_filename = os.path.abspath(os.path.join(fullpath,f))
                                 if track.filename != new_filename:
-                                    track.filename = os.path.relpath(new_filename,config.media_root)
+                                    track.filename = os.path.relpath(new_filename,args.path)
                                     session.commit()
                                     _found += 1
-                                     #yield 'FOUND', code , subcode
                             else:
                                 pass
 
         persent = _proceed * 100 / _total
         v = _proceed * 20 / _total
-        print 'Progress(%s%% == %s/%s errors: %s): %s'% (persent, _found,_proceed,_errors,v * '#') 
-                                
-                            
-#                     tracks = Track.query.filter(Track.code.like('%s%%' % code))
-#                     for t in tracks:
-#                         yield t
+        print('Progress(%s%% == %s/%s errors: %s): %s'% (persent, _found,_proceed,_errors,v * '#')) 
 
 _media_dirs= {}
 def get_media_dir(no):
     global _media_dirs
-    root = os.path.abspath("/media/vahid/data/javdaneha-base")
+    root = os.path.abspath(args.path)
     
     if len(_media_dirs) <= 0:
         for f in os.listdir(root):
@@ -82,5 +79,12 @@ def get_media_dir(no):
                     _media_dirs[int(m.groupdict()['mediano'])] = fullpath
     return _media_dirs[no]
     
-if __name__ == '__main__':
+def main():
+    
+    if args.config_file:
+        config.load_files(args.config_file)
     scan()
+    return 0
+    
+if __name__ == '__main__':
+    main()

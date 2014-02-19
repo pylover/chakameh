@@ -36,10 +36,13 @@ setup(
     install_requires=dependencies,
     scripts=[
         'scripts/csvtotsv',
-        'scripts/sqlitetocsv'
+        'scripts/sqlitetocsv',
+        'scripts/purify-persian'
     ],
     entry_points={
-        'console_scripts':[]},
+        'console_scripts':[
+            'chakameh.findfiles = chakameh.tools.findfiles:main',
+            'chakameh.import_tracks = chakameh.tools.import_tracks:main']},
     classifiers=[
         "Development Status :: 3 - Alpha",
         "License :: Freeware",
