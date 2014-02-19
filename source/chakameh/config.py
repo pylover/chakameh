@@ -14,7 +14,7 @@ config = ConfigManager(
         'data_uri': 'sqlite:///../data/db.sqlite',
         'media_root':       '/media/vahid/data/Javdaneha',
         'arts':{
-            'noimage': 'stuff/images/noimage.png',
+            'noimage': os.path.join(thisdir,'..', 'stuff/images/noimage.png'),
             'directory': '/media/vahid/data/Javdaneha-Arts',
             'extensions': ['png','jpg']
         }
