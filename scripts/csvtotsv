@@ -8,7 +8,7 @@ def read():
     c,l= 0,0
     try:
         for line in sys.stdin.readlines():
-            columns = line.strip()[4:].decode('utf8').split(u',')
+            columns = line.strip().decode('utf8').split(u',')
             row = []
             l+=1
             for column in columns:
@@ -21,10 +21,10 @@ def read():
         raise
     
 
-def start():
+def main():
     for l in read():
         print(u'\t'.join(l).encode('utf8'))
 
         
 if __name__ == '__main__':
-    start()
+    main()

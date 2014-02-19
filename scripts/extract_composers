@@ -1,8 +1,0 @@
-#! /bin/bash
-
-sqlite3 ../data/db.sqlite <<!
-.headers on
-.mode csv
-.output ../docs/composers.csv
-select title from composer order by title;
-!

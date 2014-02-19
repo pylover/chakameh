@@ -36,6 +36,11 @@ setup(
     platforms=["any"],
     long_description=read('../README.md'),
     install_requires=dependencies,
+    scripts=[
+        'scripts/csvtotsv',
+    ],
+    entry_points={
+                  },
     classifiers=[
         "Development Status :: 3 - Alpha",
         "License :: Freeware",
