@@ -11,8 +11,8 @@ config_filename=os.path.join(thisdir,'../development.conf')
 
 config = ConfigManager(
     init_value={
-        'data_uri': 'sqlite:///../data/db.sqlite',
-        'media_root':       '/media/vahid/data/Javdaneha',
+        'data_uri': 'sqlite:///%s' % os.path.join(thisdir,'../stuff/data/db.sqlite'),
+        'media_root':       '',
         'arts':{
             'noimage': os.path.join(thisdir,'..', 'stuff/images/noimage.png'),
             'directory': '/media/vahid/data/Javdaneha-Arts',

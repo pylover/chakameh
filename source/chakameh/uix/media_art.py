@@ -28,9 +28,7 @@ class ArtBox(AccordionItem):
         super(ArtBox,self).on_collapse(artbox,collapsed)
         if collapsed:
             self.container.clear_widgets()
-            print('Clearing widgets')
         else:
-            print('Creating Carousel')
             self.container.add_widget(self.create_carousel())
 
 
@@ -43,30 +41,15 @@ class MediaArt(Splitter):
         return self.height > self.min_size
     
     def expand(self):
-        print 'expanding'
         self.height = self.max_size
         
     
     def on_touch_down(self,touch):
-        if self._strip.collide_point(touch.x,touch.y) or self.expanded:
-            print 'Collide'
-            super(MediaArt,self).on_touch_down(touch)
-        else:
-            self.expand()
-            return True
-#         if self.collide_point(touch.x, touch.y):
-#             self.expand_status = 'collapsed' if self.expand_status == 'expanded' else 'expanded'
-#     
-#     def on_expand_status(self,*args,**kw):
-#         if self.expand_status == 'expanded':
-#             self.dispatch('on_expand')
-#         else:
-#             self.dispatch('on_collapse')
-#     
-#     def on_expand(self):
-#         pass
-#     
-#     def on_collapse(self):
-#         pass
-            
+        if self.collide_point(touch.x,touch.y):
+            if self._strip.collide_point(touch.x,touch.y) or self.expanded:
+                return super(MediaArt,self).on_touch_down(touch)
+            else:
+                self.expand()
+                return True
+
         
