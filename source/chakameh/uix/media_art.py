@@ -5,35 +5,56 @@ Created on:    Feb 2, 2014
 '''
 
 from kivy.uix.splitter import Splitter
-from kivy.uix.scatterlayout import ScatterLayout
 from kivy.properties import OptionProperty
+from kivy.uix.carousel import Carousel
+from kivy.uix.accordion import AccordionItem
+from kivy.factory import Factory
 from kivy.logger import Logger
-from kivy.uix.scatter import Scatter
-from kivy.uix.stencilview import StencilView
-from kivy.uix.gridlayout import GridLayout
 
-class ArtBox(StencilView):
+class ArtBox(AccordionItem):
     category = OptionProperty('none',options=['none','artist','composer','lyricist'])
     def __init__(self,*args,**kw):
-        self.register_event_type('on_press')
         super(ArtBox,self).__init__(*args,**kw)
-        
-    def on_touch_up(self,touch):
-        if self.collide_point(touch.x, touch.y):
-            self.dispatch('on_press',touch)
-
-    def on_press(self,touch):
-        pass
+        self.title_template = 'ArtBoxTitle'
+    
+    def create_carousel(self):
+        carousel = Carousel(direction='right')
+        for i in range(10):
+            src = "http://placehold.it/480x270.png&text=slide-%d&.png" % i
+            image = Factory.AsyncImage(source=src, allow_stretch=True)
+            carousel.add_widget(image)
+        return carousel        
+    
+    def on_collapse(self,artbox,collapsed):
+        super(ArtBox,self).on_collapse(artbox,collapsed)
+        if collapsed:
+            self.container.clear_widgets()
+            print('Clearing widgets')
+        else:
+            print('Creating Carousel')
+            self.container.add_widget(self.create_carousel())
 
 
 class MediaArt(Splitter):
-#    expand_status = OptionProperty('collapsed',options=['collapsed','expanded'])
     def __init__(self,*args,**kw):
-#         self.register_event_type('on_expand')
-#         self.register_event_type('on_collapse')
         super(MediaArt,self).__init__(*args,**kw)
+
+    @property
+    def expanded(self):
+        return self.height > self.min_size
     
-#     def on_touch_down(self,touch):
+    def expand(self):
+        print 'expanding'
+        self.height = self.max_size
+        
+    
+    def on_touch_down(self,touch):
+        if self._strip.collide_point(touch.x,touch.y) or self.expanded:
+            print 'Collide'
+            super(MediaArt,self).on_touch_down(touch)
+        else:
+            self.expand()
+            return True
 #         if self.collide_point(touch.x, touch.y):
 #             self.expand_status = 'collapsed' if self.expand_status == 'expanded' else 'expanded'
 #     

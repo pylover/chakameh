@@ -3,22 +3,20 @@
 #:import config chakameh.config.config
 
 <ArtBox>:
-  # Image:
-    # canvas:
-      # Color: 
-        # rgb: 1,0,0
-      # Line:
-        # width: 2
-        # rectangle: self.pos + self.size
+  # direction: 'right'
+  # AsyncImage:
     # source: config.arts.noimage
-    # keep_ratio: False
-    # size: 800,600
-    # pos: root.x, -(self.height - root.height)
+  # AsyncImage:
+    # source: config.arts.noimage
+  # AsyncImage:
+    # source: config.arts.noimage
+    
+#  pos: root.x, -(self.height - root.height)
 
         
 [ArtBoxTitle@StencilView]:
   size_hint_x: None
-  width: 55.0 * ctx.item.collapse_alpha
+  width: 70.0 * ctx.item.collapse_alpha
   Image:
     source: config.arts.noimage
     size: 800,600
@@ -26,17 +24,11 @@
 
 <MediaArt>:
   Accordion:
-    min_space: 58
-    AccordionItem:
-      title_template: 'ArtBoxTitle'
-      ArtBox:
-        category: 'artist'
-    AccordionItem:
-      title_template: 'ArtBoxTitle'
-      ArtBox:
-        category: 'composer'
-    AccordionItem:
-      title_template: 'ArtBoxTitle'
-      ArtBox:
-        category: 'lyricist'
+    min_space: 72
+    ArtBox:
+      category: 'artist'
+    ArtBox:
+      category: 'composer'
+    ArtBox:
+      category: 'lyricist'
     

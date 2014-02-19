@@ -1,12 +1,12 @@
 UI:
 	Media Arts
-	Loading
-	font
-	StatusBar
 	next_track
 	nsis
 	media change system
 	
+StatusBar
+font
+Loading
 lock
 backdoor-trojan
 resample_files again

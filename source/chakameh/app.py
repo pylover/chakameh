@@ -90,11 +90,11 @@ class ChakamehApp(App):
         self.tracks_adapter.bind(on_selection_change=self.on_track_selection)
         self.get_widget('player').bind(on_track_end=self.on_track_end,
                                        on_track_start=self.on_track_start)
-        self.get_widget('artists').adapter.bind(on_selection_change=self.on_filter)
-        self.get_widget('lyricists').adapter.bind(on_selection_change=self.on_filter)
-        self.get_widget('composers').adapter.bind(on_selection_change=self.on_filter)
-        self.get_widget('generes').adapter.bind(on_selection_change=self.on_filter)
-        self.get_widget('search').bind(text=self.on_search)
+        self.get_widget('rightpane').ids['artists'].adapter.bind(on_selection_change=self.on_filter)
+        self.get_widget('rightpane').ids['lyricists'].adapter.bind(on_selection_change=self.on_filter)
+        self.get_widget('rightpane').ids['composers'].adapter.bind(on_selection_change=self.on_filter)
+        self.get_widget('rightpane').ids['generes'].adapter.bind(on_selection_change=self.on_filter)
+        self.get_widget('rightpane').ids['search'].bind(text=self.on_search)
 
     def on_stop(self):
         self.profile.disable()

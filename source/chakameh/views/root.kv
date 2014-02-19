@@ -22,44 +22,12 @@ Widget:
           id: playlist
           size_hint: 1, .82
         MediaArt:
-          size_hint: 1, .14
-          min_size: 50
+          size_hint: 1, None
+          min_size: root.height * .14
+          height: root.height * .14
           max_size: root.height * .80
           sizable_from: 'top'     
-          # on_expand: playlist.size_hint_y = .14; self.size_hint_y = .82
-          # on_collapse: playlist.size_hint_y = .82; self.size_hint_y = .14
-
-        
             
-      #Right Pane
-      BoxLayout:
+      RightPane:
+        id: rightpane
         size_hint: .2, 1
-        orientation: 'vertical'
-        TextInput:
-          id: search
-          size_hint_y: None
-          height: 32
-              
-        Accordion:
-          size_hint: 1, 1
-          orientation: 'vertical'
-          AccordionItem:
-            title: 'خواننده'
-            ListView:
-              id: artists
-              adapter: adapters.ArtistAdapter()
-          AccordionItem:
-            title: 'شاعر'
-            ListView:
-              id: lyricists
-              adapter: adapters.LyricistAdapter()            
-          AccordionItem:
-            title: 'دستگاه'
-            ListView:
-              id: generes
-              adapter: adapters.GenereAdapter()            
-          AccordionItem:
-            title: 'آهنگساز'
-            ListView:
-              id: composers
-              adapter: adapters.ComposerAdapter()
