@@ -98,27 +98,35 @@ def start():
         elif linetype == LineTypes.DATA:
             code = line[0]
             prime = line[1]
-            artist = Artist.ensure(line[2])
-            composer = Composer.ensure(line[3])
-            lyricist = Lyricist.ensure(line[4])
-            dastgah = Genere.ensure(line[5])
+            title = line[2]
+            artist = Artist.ensure(line[3],line[4]) # artist, realname            
+            composer = Composer.ensure(line[5])
+            lyricist = Lyricist.ensure(line[6])
+            dastgah = Genere.ensure(line[7])
+            comment = line[8]
+            language = line[9]
             
             track = Track.ensure(code, prime,
+                           title = title,
                            artist = artist,
                            composer = composer,
                            lyricist = lyricist,
                            genere = dastgah,
-                           mediano = mediano)
+                           mediano = mediano,
+                           comment = comment,
+                           language = language)
             
             print('\t'.join([ str(track.id),
                               code,
                               mediano,
-                              unicode(category),
-                              prime,
-                              unicode(artist),
-                              unicode(composer),
-                              unicode(lyricist),
-                              unicode(dastgah)]).encode('utf8'))
+                              prime]))
+
+#                               unicode(category),
+#                               prime,
+#                               unicode(artist),
+#                               unicode(composer),
+#                               unicode(lyricist),
+#                               unicode(dastgah)]).encode('utf8'))
     
 def main():
     start()

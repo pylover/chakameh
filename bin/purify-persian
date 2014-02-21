@@ -17,6 +17,11 @@ class ReplacementList(object):
 
 replacements = ReplacementList()
 replacements.add(u'ي', by=u'ی')
+replacements.add(u'ك', by=u'ک')
+replacements.add(u'ة', by=u'ه')
+replacements.add(u'ۀ', by=u'ه')
+
+
 replacements = replacements.get_replacement_dict()
 
 def refine_string(data):

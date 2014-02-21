@@ -29,6 +29,7 @@ class Track(Entity,SelectableDataItem):
     comment = Field(UnicodeText,nullable=True)
     filename = Field(Unicode(500),nullable=True) # Relative to archive directpory 
     filemd5 = Field(Binary(16),nullable=True) #,unique=True,index=True)
+    language = Field(Unicode(100),nullable=True)
     
     @classmethod
     def ensure(cls,code,prime,**kw):

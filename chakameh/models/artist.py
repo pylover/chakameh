@@ -10,17 +10,18 @@ from chakameh.models.artable import Artable
 
 class Artist(Entity,Artable):
     title = Field(Unicode(500),unique=True,nullable=False,index=True)
+    realname = Field(Unicode(500),nullable=True)
     tracks = OneToMany('Track')
     tags = Field(Unicode(500),nullable=True)
 
     @classmethod
-    def ensure(cls,title):
+    def ensure(cls,title,realname=None):
         if not title or title.strip()=='':
             return None
         artist = cls.query.filter(cls.title == title).first()
         if not artist:
-            artist = cls(title = title)
-            session.commit()
+            artist = cls(title = title,realname=realname)
+            session.commit()            
         return artist
 
     def get_arts_directory(self):
