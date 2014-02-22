@@ -5,7 +5,7 @@ Created on:    Feb 2, 2014
 '''
 
 from kivy.uix.splitter import Splitter
-from kivy.properties import OptionProperty
+from kivy.properties import OptionProperty,NumericProperty
 from kivy.uix.carousel import Carousel
 from kivy.uix.accordion import AccordionItem
 from kivy.factory import Factory
@@ -33,6 +33,7 @@ class ArtBox(AccordionItem):
 
 
 class MediaArt(Splitter):
+    trackid = NumericProperty()
     def __init__(self,*args,**kw):
         super(MediaArt,self).__init__(*args,**kw)
 
@@ -43,6 +44,8 @@ class MediaArt(Splitter):
     def expand(self):
         self.height = self.max_size
         
+    def on_trackid(self,*args):
+        print self.trackid
     
     def on_touch_down(self,touch):
         if self.collide_point(touch.x,touch.y):

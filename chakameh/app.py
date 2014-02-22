@@ -50,12 +50,16 @@ class ChakamehApp(App):
             return 
             
         filename = selected.parent.filename
+        trackid = selected.parent.objid
         if player.source == filename:
             player.source = filename
             prop = player.property('source') 
             prop.dispatch(player.__self__)
         else:
             player.source = filename
+        
+        self.get_widget('mediaart').trackid = trackid
+        
     
     @property
     def tracks_adapter(self):
@@ -76,14 +80,17 @@ class ChakamehApp(App):
         pl.adapter.select_next_track()
 
     def on_track_start(self,player):
-        print player.source
+        pass
+        
+        
     
     def on_start(self):
-        self.profile = cProfile.Profile()
-        self.profile.enable()
+        #self.profile = cProfile.Profile()
+        #self.profile.enable()
         self.tracks_adapter.bind(on_selection_change=self.on_track_selection)
         self.get_widget('player').bind(on_track_end=self.on_track_end,
                                        on_track_start=self.on_track_start)
+        
         self.get_widget('rightpane').ids['artists'].adapter.bind(on_selection_change=self.on_filter)
         self.get_widget('rightpane').ids['lyricists'].adapter.bind(on_selection_change=self.on_filter)
         self.get_widget('rightpane').ids['composers'].adapter.bind(on_selection_change=self.on_filter)
@@ -91,7 +98,8 @@ class ChakamehApp(App):
         self.get_widget('rightpane').ids['search'].bind(text=self.on_search)
 
     def on_stop(self):
-        self.profile.disable()
-        self.profile.dump_stats('myapp.profile')
+        #self.profile.disable()
+        #self.profile.dump_stats('myapp.profile')
+        pass
         
         

@@ -61,7 +61,7 @@ class AudioPlayer(BoxLayout):
     
     def on_source(self,*args): 
         filename = os.path.join(config.media_root,self.source)
-        print filename
+        #print filename
         if os.path.exists(filename):
             self.player_state = States.STOPPED
             self.stop()
