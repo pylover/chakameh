@@ -8,7 +8,7 @@ import re
 
 parser = argparse.ArgumentParser(description='Find and store media filenames.')
 parser.add_argument('inputfile',metavar='FILENAME', nargs='?',help='Tracks tsv file.')
-parser.add_argument('--config-file', metavar='CONFIGFILE',help='Chakameh config file.')
+parser.add_argument('-c','--config-file', metavar='CONFIGFILE',help='Chakameh config file.')
 args = parser.parse_args()
 
 from chakameh.config import config

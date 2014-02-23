@@ -8,7 +8,7 @@ import sys
 
 parser = argparse.ArgumentParser(description='Find and store media filenames.')
 parser.add_argument('path', metavar='PATH',help='Media directory.')
-parser.add_argument('--config-file', metavar='CONFIGFILE',help='Chakameh config file.')
+parser.add_argument('-c','--config-file', metavar='CONFIGFILE',help='Chakameh config file.')
 args = parser.parse_args()
 
 from chakameh.config import config

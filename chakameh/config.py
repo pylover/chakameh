@@ -15,7 +15,7 @@ config = ConfigManager(
         'media_root':       '',
         'arts':{
             'noimage': 'stuff/images/noimage.png',
-            'directory': '/media/vahid/data/Javdaneha-Arts',
+            'root': '/media/vahid/data/Javdaneha-Arts',
             'extensions': ['png','jpg']
         }
     },
