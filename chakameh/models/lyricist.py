@@ -8,6 +8,7 @@ from chakameh.models.artable import Artable
 
 class Lyricist(Entity,Artable):
     title = Field(Unicode(500),unique=True,nullable=False,index=True)
+    realname = Field(Unicode(500),nullable=True)
     tracks = OneToMany('Track')
     tags = Field(Unicode(500),nullable=True)
  

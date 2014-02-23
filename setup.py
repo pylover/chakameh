@@ -43,7 +43,9 @@ setup(
         'console_scripts':[
             "chakameh.import-tracks = chakameh.tools.import_tracks:main",
             "chakameh.find-files = chakameh.tools.find_files:main",
-            "chakameh.update-artists = chakameh.tools.update_artists:main"]
+            "chakameh.update-artists = chakameh.tools.update_artists:main",
+            "chakameh.update-composers = chakameh.tools.update_composers:main",
+            "chakameh.update-lyricists = chakameh.tools.update_lyricists:main"]
     },
     classifiers=[
         "Development Status :: 3 - Alpha",

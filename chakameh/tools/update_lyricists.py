@@ -18,7 +18,7 @@ if args.config_file:
 
 sys.argv = sys.argv[:1]
 
-from chakameh.models import Artist, session
+from chakameh.models import Lyricist, session
 
 def read(file):
     reader = csv.reader(file,delimiter='\t',dialect='excel')
@@ -37,7 +37,7 @@ def main():
     try:
         for _id, title, realname, tags in read(file):
             print(_id, title, realname, tags)
-            artist = Artist.query.filter(Artist.title == title.strip()).first()
+            artist = Lyricist.query.filter(Lyricist.title == title.strip()).first()
             artist.realname = realname
             artist.tags = ','.join(tags)
             session.commit()
