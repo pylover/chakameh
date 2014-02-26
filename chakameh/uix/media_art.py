@@ -51,12 +51,12 @@ class MediaArt(Splitter):
             track = Track.get(self.trackid)
             print(track)
             self._container.clear_widgets()
-            if track.artist:
-                self._container.add_widget(ArtBox(category='artist',model=track.artist,title='خواننده'))
-            if track.composer:
-                self._container.add_widget(ArtBox(category='composer',model=track.composer,title='آهنگساز'))
             if track.lyricist:
                 self._container.add_widget(ArtBox(category='lyricist',model=track.lyricist,title='نوازنده'))
+            if track.composer:
+                self._container.add_widget(ArtBox(category='composer',model=track.composer,title='آهنگساز'))
+            if track.artist:
+                self._container.add_widget(ArtBox(category='artist',model=track.artist,title='خواننده'))
         except:
             raise
 
