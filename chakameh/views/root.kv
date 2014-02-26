@@ -1,13 +1,19 @@
 
 #:import adapters chakameh.uix.adapters
+#:import image kivy.core.image
+#:import config chakameh.config.config
 
 Widget:
-  # canvas:
-    # Color:
-      # rgb: back_color_rgb
-    # Rectangle:
-      # size: self.size
-      # pos: self.pos
+  texture: image.Image(config.background_image).texture
+  on_size:
+    print config.background_image
+    self.texture.uvsize = (self.width/8.0,self.height/8.0)
+    self.texture.wrap = 'repeat'  
+  canvas:
+    Rectangle:
+      size: self.size
+      pos: self.pos
+      texture: self.texture
   BoxLayout:
     size: root.size
     pos: root.pos

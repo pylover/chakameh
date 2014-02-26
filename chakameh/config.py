@@ -13,6 +13,7 @@ config = ConfigManager(
     init_value={
         'data_uri': '',
         'media_root':       '',
+        'background_image': os.path.join(thisdir,'stuff/images/back.png'),
         'arts':{
             'noimage': 'stuff/images/noimage.png',
             'root': '/media/vahid/data/Javdaneha-Arts',

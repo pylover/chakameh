@@ -10,6 +10,8 @@ from chakameh.models import ApplicationInfo,session
 from datetime import datetime
 import os.path
 import cProfile
+from kivy.core.image import Image
+from chakameh.config import config
 
 class ChakamehApp(App):
     

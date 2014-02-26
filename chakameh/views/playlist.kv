@@ -1,6 +1,13 @@
 #:import PlaylistRow chakameh.uix.playlist.PlaylistRow
 #:import FboGridLayout chakameh.uix.layouts.FboGridLayout
+
 <Playlist>:
+  canvas:
+    Color: 
+      rgba: .08, .08, .08, .2
+    Rectangle:
+      pos: self.pos
+      size: self.size
   container: container
   header: header
   BoxLayout:
@@ -62,6 +69,16 @@
 <PlayListItemButton@ListItemButton>:
   background_color: 0,0,0,0
   deselected_color: 0,0,0,0
+  selected_color: fore_color_rgba
+  
+<ColumnHeaderCell>:
+  background_disabled_down: 'atlas://data/images/defaulttheme/button'
+  background_disabled_normal: 'atlas://data/images/defaulttheme/button_pressed'
+  background_down: 'atlas://data/images/defaulttheme/button'
+  background_normal: 'atlas://data/images/defaulttheme/button_pressed'
+  color: 0,0,0,1
+  # background_color: 0,0,0,0
+  # deselected_color: 0,0,0,0
 
 [DetailedListItem@PlaylistRow]:
   size_hint_y: None

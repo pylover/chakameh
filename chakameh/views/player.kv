@@ -3,6 +3,13 @@
 #:import States chakameh.uix.player.States
 
 <AudioPlayer>:
+  canvas:
+    Color:
+      rgba: header_color_rgba
+    Rectangle:
+      pos: self.pos
+      size: self.size
+      
   orientation: 'horizontal'
   PlayButton:
     size_hint: None, 1
