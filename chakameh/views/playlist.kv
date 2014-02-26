@@ -16,28 +16,24 @@
         size_hint: .12, 1
         text: 'دستگاه'
         halign: 'right'
-#        on_sort_status: root.adapter.sort(self.column, self.sort_status)
           
       ColumnHeaderCell:
         column: 'lyricist'
         size_hint: .12, 1
         text: 'شاعر'
         halign: 'right'
-#        on_sort_status: root.adapter.sort(self.column, self.sort_status)
         
       ColumnHeaderCell:
         column: 'composer'
         size_hint: .12, 1
         text: 'آهنگساز'
         halign: 'right'
-#        on_sort_status: root.adapter.sort(self.column, self.sort_status)
         
       ColumnHeaderCell:
         column: 'artist'
         size_hint: .12, 1
         text: 'خواننده'
         halign: 'right'
-#        on_sort_status: root.adapter.sort(self.column, self.sort_status)
         
       ColumnHeaderCell:
         column: 'title'
@@ -61,6 +57,12 @@
         id: container
         size_hint_y: None
 
+<PlayListItemLabel@ListItemLabel>:
+  
+<PlayListItemButton@ListItemButton>:
+  background_color: 0,0,0,0
+  deselected_color: 0,0,0,0
+
 [DetailedListItem@PlaylistRow]:
   size_hint_y: None
   height: 32
@@ -68,31 +70,31 @@
   objid: ctx.id
   filename: ctx.filename
   row_index: ctx.index
-  ListItemButton:
+  PlayListItemLabel:
     size_hint: .12, 1
     text: ctx.genere
     halign: 'right'
     font_size: 10
-  ListItemButton:
+  PlayListItemLabel:
     size_hint: .12, 1
     text: ctx.lyricist
     halign: 'right'
     font_size: 10
-  ListItemButton:
+  PlayListItemLabel:
     size_hint: .12, 1
     text: ctx.composer
     halign: 'right'
     font_size: 10
-  ListItemButton:
+  PlayListItemLabel:
     size_hint: .12, 1
     text: ctx.artist
     halign: 'right'
     font_size: 10
-  ListItemButton:
+  PlayListItemButton:
     size_hint: .43, 1
     text: ctx.title
     halign: 'right'
-  ListItemButton:
+  PlayListItemButton:
     size_hint: .07, 1
     text: ctx.code
     halign: 'left'

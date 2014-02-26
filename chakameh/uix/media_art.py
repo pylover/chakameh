@@ -5,32 +5,34 @@ Created on:    Feb 2, 2014
 '''
 
 from kivy.uix.splitter import Splitter
-from kivy.properties import OptionProperty,NumericProperty
+from kivy.properties import OptionProperty,NumericProperty,ObjectProperty
 from kivy.uix.carousel import Carousel
 from kivy.uix.accordion import AccordionItem
 from kivy.factory import Factory
+from chakameh.models import Track
+
+
+class ArtCarousel(Carousel):
+    def __init__(self,*args,**kw):
+        super(ArtCarousel,self).__init__(*args,**kw)
 
 class ArtBox(AccordionItem):
     category = OptionProperty('none',options=['none','artist','composer','lyricist'])
+    model = ObjectProperty()
+    
     def __init__(self,*args,**kw):
         super(ArtBox,self).__init__(*args,**kw)
-        self.title_template = 'ArtBoxTitle'
-    
-    def create_carousel(self):
-        carousel = Carousel(direction='right')
-        for i in range(10):
-            src = "http://placehold.it/480x270.png&text=slide-%d&.png" % i
-            image = Factory.AsyncImage(source=src, allow_stretch=True)
+#        self.title_template = 'ArtBoxTitle'
+        carousel = ArtCarousel(direction='right')
+        self.add_widget(carousel)
+        if not self.model:
+            return
+        for filename in self.model.get_arts():
+            image = Factory.AsyncImage(source=filename, allow_stretch=True)
             carousel.add_widget(image)
-        return carousel        
-    
-    def on_collapse(self,artbox,collapsed):
-        super(ArtBox,self).on_collapse(artbox,collapsed)
-        if collapsed:
-            self.container.clear_widgets()
-        else:
-            self.container.add_widget(self.create_carousel())
-
+        
+    def on_model(self,*args):
+        pass    
 
 class MediaArt(Splitter):
     trackid = NumericProperty()
@@ -43,10 +45,21 @@ class MediaArt(Splitter):
     
     def expand(self):
         self.height = self.max_size
-        
+
     def on_trackid(self,*args):
-        print self.trackid
-    
+        try:
+            track = Track.get(self.trackid)
+            print(track)
+            self._container.clear_widgets()
+            if track.artist:
+                self._container.add_widget(ArtBox(category='artist',model=track.artist,title='خواننده'))
+            if track.composer:
+                self._container.add_widget(ArtBox(category='composer',model=track.composer,title='آهنگساز'))
+            if track.lyricist:
+                self._container.add_widget(ArtBox(category='lyricist',model=track.lyricist,title='نوازنده'))
+        except:
+            raise
+
     def on_touch_down(self,touch):
         if self.collide_point(touch.x,touch.y):
             if self._strip.collide_point(touch.x,touch.y) or self.expanded:
@@ -55,4 +68,3 @@ class MediaArt(Splitter):
                 self.expand()
                 return True
 
-        

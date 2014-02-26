@@ -2,6 +2,12 @@
 #:import adapters chakameh.uix.adapters
 
 Widget:
+  # canvas:
+    # Color:
+      # rgb: back_color_rgb
+    # Rectangle:
+      # size: self.size
+      # pos: self.pos
   BoxLayout:
     size: root.size
     pos: root.pos
@@ -9,7 +15,6 @@ Widget:
     AudioPlayer:
       id: player
       size_hint: 1, .08
-      color: 1,0,0,1
     BoxLayout:
       size_hint: 1, .92
       orientation: 'horizontal'

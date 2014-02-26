@@ -51,6 +51,7 @@ class ChakamehApp(App):
             
         filename = selected.parent.filename
         trackid = selected.parent.objid
+        
         if player.source == filename:
             player.source = filename
             prop = player.property('source') 

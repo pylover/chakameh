@@ -1,5 +1,6 @@
 #:import RightPane chakameh.uix.rightpane.RightPane
 
+
 [SimpleListItem@SelectableView+BoxLayout]:
   size_hint_y: None
   height: 32
@@ -8,35 +9,40 @@
   ListItemButton:
     text: ctx.title
     is_selected: False
-    
+    background_color: null_color_rgba
+    deselected_color: null_color_rgba
+
+<RightPaneAccordionItem@AccordionItem>:
+  min_space: 30
+
 <RightPane>:
   orientation: 'vertical'
   TextInput:
     id: search
     size_hint_y: None
     height: 32
-        
+
   Accordion:
+    min_space: 30
     size_hint: 1, 1
     orientation: 'vertical'
-    AccordionItem:
+    RightPaneAccordionItem:
       title: 'خواننده'
       ListView:
         id: artists
         adapter: adapters.ArtistAdapter()
-    AccordionItem:
+    RightPaneAccordionItem:
       title: 'شاعر'
       ListView:
         id: lyricists
         adapter: adapters.LyricistAdapter()            
-    AccordionItem:
+    RightPaneAccordionItem:
       title: 'دستگاه'
       ListView:
         id: generes
         adapter: adapters.GenereAdapter()            
-    AccordionItem:
+    RightPaneAccordionItem:
       title: 'آهنگساز'
       ListView:
         id: composers
         adapter: adapters.ComposerAdapter()
-  

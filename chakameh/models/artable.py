@@ -7,31 +7,27 @@ Created on:    Jan 21, 2014
 from chakameh.config import config
 import os
 
-def _get_media_list(directory):
-    arts_dir = os.path.join(config.media_arts_root,directory)
-    extensions = config.media_arts_extensions
-    for dirname, _dirnames, filenames in os.walk(arts_dir):
-        for filename in filenames:
-            for ext in extensions:
-                if filename.endswith(ext):
-                    yield os.path.abspath(os.path.join(dirname, filename))
-                    break
 
 class Artable(object):
     
     def get_tags(self):
-        return self.tags.split(',')
+        if self.tags:
+            return self.tags.split(',')
+        return []
     
     def get_arts_directory(self):
         """ abstract """
         raise NotImplementedError
     
-    def get_media_list(self):
-        return _get_media_list(self.get_arts_directory())
-    
     def get_arts(self):
-        tags = self.get_tags()
-        for fn in self.get_media_list():
-            for tag in tags:
-                if tag in fn.lower():
-                    yield fn
+        arts_dir = os.path.join(config.arts.root,self.get_arts_directory())
+        extensions = config.arts.extensions
+        for tag in self.get_tags():
+            if not tag.strip():
+                break
+            art_dir = os.path.join(arts_dir,tag)
+            if os.path.exists(art_dir):
+                for f in os.listdir(art_dir):
+                    for ext in extensions:
+                        if f.endswith(ext):
+                            yield os.path.abspath(os.path.join(art_dir, f))

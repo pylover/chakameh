@@ -2,33 +2,10 @@
 #:import ArtBox chakameh.uix.media_art.ArtBox
 #:import config chakameh.config.config
 
-<ArtBox>:
-  # direction: 'right'
-  # AsyncImage:
-    # source: config.arts.noimage
-  # AsyncImage:
-    # source: config.arts.noimage
-  # AsyncImage:
-    # source: config.arts.noimage
-    
-#  pos: root.x, -(self.height - root.height)
 
-        
-[ArtBoxTitle@StencilView]:
-  size_hint_x: None
-  width: 70.0 * ctx.item.collapse_alpha
-  Image:
-    source: config.arts.noimage
-    size: 800,600
-    pos: root.x, -(self.height - root.height)
+<ArtBox>:
+  min_space: 30
 
 <MediaArt>:
   Accordion:
-    min_space: 72
-    ArtBox:
-      category: 'artist'
-    ArtBox:
-      category: 'composer'
-    ArtBox:
-      category: 'lyricist'
-    
+    min_space: 30
