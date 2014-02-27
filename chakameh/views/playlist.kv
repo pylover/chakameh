@@ -41,18 +41,25 @@
         size_hint: .12, 1
         text: 'خواننده'
         halign: 'right'
+
+      ColumnHeaderCell:
+        column: 'prime'
+        size_hint: .30, 1
+        text: 'مطلع'
+        halign: 'right'
+        on_sort_status: root.adapter.sort(self.column, self.sort_status)
         
       ColumnHeaderCell:
         column: 'title'
-        size_hint: .43, 1
-        text: 'عنوان'
+        size_hint: .13, 1
+        text: 'نام ترانه'
         halign: 'right'
         on_sort_status: root.adapter.sort(self.column, self.sort_status)
         
       ColumnHeaderCell:
         column: 'code'
         size_hint: .07, 1
-        text: 'کد'
+        text: 'شماره'
         halign: 'left'
         on_sort_status: root.adapter.sort(self.column, self.sort_status)
                 
@@ -108,7 +115,11 @@
     halign: 'right'
     font_size: 10
   PlayListItemButton:
-    size_hint: .43, 1
+    size_hint: .30, 1
+    text: ctx.prime
+    halign: 'right'
+  PlayListItemButton:
+    size_hint: .13, 1
     text: ctx.title
     halign: 'right'
   PlayListItemButton:

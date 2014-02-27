@@ -16,8 +16,7 @@ class Artable(object):
         return []
     
     def get_arts_directory(self):
-        """ abstract """
-        raise NotImplementedError
+        return 'Artists'
     
     def get_arts(self):
         arts_dir = os.path.join(config.arts.root,self.get_arts_directory())

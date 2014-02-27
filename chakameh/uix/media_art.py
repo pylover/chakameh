@@ -5,16 +5,28 @@ Created on:    Feb 2, 2014
 '''
 
 from kivy.uix.splitter import Splitter
-from kivy.properties import OptionProperty,NumericProperty,ObjectProperty
+from kivy.properties import OptionProperty,NumericProperty,ObjectProperty,BooleanProperty
 from kivy.uix.carousel import Carousel
 from kivy.uix.accordion import AccordionItem
 from kivy.factory import Factory
 from chakameh.models import Track
+from kivy.clock import Clock
+from chakameh.config import config
 
 
 class ArtCarousel(Carousel):
+    auto_slide = BooleanProperty(None)
     def __init__(self,*args,**kw):
         super(ArtCarousel,self).__init__(*args,**kw)
+
+    def _do_slide(self,dt):
+        self.load_next()
+        
+    def on_auto_slide(self,*args):
+        if self.auto_slide:
+            Clock.schedule_interval(self._do_slide, config.arts.slide_interval)
+        else:
+            Clock.unschedule(self._do_slide)
 
 class ArtBox(AccordionItem):
     category = OptionProperty('none',options=['none','artist','composer','lyricist'])
@@ -22,17 +34,17 @@ class ArtBox(AccordionItem):
     
     def __init__(self,*args,**kw):
         super(ArtBox,self).__init__(*args,**kw)
-#        self.title_template = 'ArtBoxTitle'
-        carousel = ArtCarousel(direction='right')
+        self.carousel = carousel = ArtCarousel(direction='right',loop=True)
         self.add_widget(carousel)
         if not self.model:
             return
         for filename in self.model.get_arts():
             image = Factory.AsyncImage(source=filename, allow_stretch=True)
             carousel.add_widget(image)
-        
-    def on_model(self,*args):
-        pass    
+
+    def on_collapse(self,*args):
+        super(ArtBox,self).on_collapse(*args)
+        self.carousel.auto_slide = not self.collapse
 
 class MediaArt(Splitter):
     trackid = NumericProperty()
@@ -49,10 +61,10 @@ class MediaArt(Splitter):
     def on_trackid(self,*args):
         try:
             track = Track.get(self.trackid)
-            print(track)
+            
             self._container.clear_widgets()
             if track.lyricist:
-                self._container.add_widget(ArtBox(category='lyricist',model=track.lyricist,title='نوازنده'))
+                self._container.add_widget(ArtBox(category='lyricist',model=track.lyricist,title='شاعر'))
             if track.composer:
                 self._container.add_widget(ArtBox(category='composer',model=track.composer,title='آهنگساز'))
             if track.artist:

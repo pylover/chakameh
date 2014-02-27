@@ -56,14 +56,15 @@ class TrackAdapter(BaseAdapter):
         if  'args_converter' not in kw:
             kw['args_converter'] = lambda i,obj: {'index':i,
                                                   'title': obj.title,
-                                                   'id': obj.id,
-                                                   'code': obj.code,
-                                                   'entity_name': obj.__class__.__name__.lower(),
-                                                   'genere': '' if not obj.genere else obj.genere.title,
-                                                   'artist': '' if not obj.artist else obj.artist.title, 
-                                                   'composer': '' if not obj.composer else obj.composer.title,
-                                                   'lyricist': '' if not obj.lyricist else obj.lyricist.title,
-                                                   'filename': '' if not obj.filename else obj.filename,
+                                                  'prime': obj.prime,
+                                                  'id': obj.id,
+                                                  'code': obj.code,
+                                                  'entity_name': obj.__class__.__name__.lower(),
+                                                  'genere': '' if not obj.genere else obj.genere.title,
+                                                  'artist': '' if not obj.artist else obj.artist.title, 
+                                                  'composer': '' if not obj.composer else obj.composer.title,
+                                                  'lyricist': '' if not obj.lyricist else obj.lyricist.title,
+                                                  'filename': '' if not obj.filename else obj.filename,
         }
         super(TrackAdapter,self).__init__(*args,**kw)
         

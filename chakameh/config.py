@@ -17,7 +17,8 @@ config = ConfigManager(
         'arts':{
             'noimage': 'stuff/images/noimage.png',
             'root': '/media/vahid/data/Javdaneha-Arts',
-            'extensions': ['png','jpg']
+            'extensions': ['png','jpg'],
+            'slide_interval': 30
         }
     },
 )

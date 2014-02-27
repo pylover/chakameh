@@ -4,7 +4,7 @@ from __future__ import print_function
 
 import argparse
 import sys
-import csv
+import tsv
 
 
 parser = argparse.ArgumentParser(description='Find and store media filenames.')
@@ -19,14 +19,6 @@ if args.config_file:
 sys.argv = sys.argv[:1]
 
 from chakameh.models import Lyricist, session
-
-def read(file):
-    reader = csv.reader(file,delimiter='\t',dialect='excel')
-    for row in reader:
-        _id, title, realname = row[:3]
-        yield _id, title.decode('utf8'), realname.decode('utf8'), row[3:]
-        
-
     
 def main():
     if args.inputfile:
@@ -35,7 +27,7 @@ def main():
         file = sys.stdin
 
     try:
-        for _id, title, realname, tags in read(file):
+        for _id, title, realname, tags in tsv.read(file):
             print(_id, title, realname, tags)
             artist = Lyricist.query.filter(Lyricist.title == title.strip()).first()
             artist.realname = realname

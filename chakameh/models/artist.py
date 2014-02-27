@@ -24,8 +24,7 @@ class Artist(Entity,Artable):
             session.commit()            
         return artist
 
-    def get_arts_directory(self):
-        return 'Artists'
+
     
     def __repr__(self):
         return '<Artist %s\t%s >' % (self.id,self.title)

@@ -11,9 +11,6 @@ class Lyricist(Entity,Artable):
     realname = Field(Unicode(500),nullable=True)
     tracks = OneToMany('Track')
     tags = Field(Unicode(500),nullable=True)
- 
-    def get_arts_directory(self):
-        return 'Artists'
         
     @classmethod
     def ensure(cls,title):
